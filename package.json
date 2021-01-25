@@ -7,11 +7,16 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generateIconFontComponent": ".\\node_modules\\.bin\\generate-icon .\\src\\themes\\styles.css --componentName=thebook-appicon --fontFamily=thebook-appicon > .\\node_modules\\react-native-vector-icons\\thebook-appicon.js",
+    "wcreateIconFont": "npm run generateIconFontComponent && npm run wcopyIconFontToNodeModules && npm run wcreateFontToNodeModule",
+    "wcreateFontToNodeModule": "copy .\\src\\themes\\*.ttf .\\node_modules\\react-native-vector-icons\\Fonts",
+    "wcopyIconFontToNodeModules": "copy .\\src\\themes\\fonts\\thebook-appicon.ttf .\\node_modules\\react-native-vector-icons\\Fonts"
   },
   "dependencies": {
     "react": "16.13.1",
-    "react-native": "0.63.4"
+    "react-native": "0.63.4",
+    "react-native-vector-icons": "^8.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.12.10",

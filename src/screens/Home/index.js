@@ -1,11 +1,12 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
+import Icon from 'react-native-vector-icons/thebook-appicon';
 // create a component
 const MyComponent = () => {
   return (
     <View style={styles.container}>
+      <Icon name="ic-cart" size={30} color="#900" />
       <Text>MyComponent</Text>
     </View>
   );
