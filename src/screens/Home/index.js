@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { loginScreen } from '../../navigation/pushScreen';
+import { introScreen } from '../../navigation/pushScreen';
 const Home = (props) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btnNavigation} onPress={() => loginScreen()}>
+      <TouchableOpacity style={styles.btnNavigation} onPress={() => introScreen()}>
         <Text style={styles.txtNavigation}>MyComponent</Text>
       </TouchableOpacity>
     </View>

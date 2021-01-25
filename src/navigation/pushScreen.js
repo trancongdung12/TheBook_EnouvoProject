@@ -58,6 +58,28 @@ export const homeScreen = () => {
       },
     },
   });
+  bottomTabs();
+};
+
+export const introScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Intro',
+              options: {
+                topBar: {
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
 };
 
 // SettingsScreen.options = {

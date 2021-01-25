@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from '../redux/store';
 import Home from '../screens/Home/index';
 import Login from '../screens/Auth/Login';
+import Intro from '../screens/Intro/index';
 
 function ReduxProvider(Component) {
   return (props) => (
@@ -14,6 +15,11 @@ function ReduxProvider(Component) {
 }
 
 export function registerScreens() {
+  Navigation.registerComponent(
+    'Intro',
+    () => ReduxProvider(Intro),
+    () => Intro,
+  );
   Navigation.registerComponent(
     'Home',
     () => ReduxProvider(Home),

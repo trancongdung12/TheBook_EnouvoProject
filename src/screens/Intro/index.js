@@ -7,6 +7,7 @@ import intro1 from '../../assets/image/intro1.png';
 import intro2 from '../../assets/image/intro2.png';
 import intro3 from '../../assets/image/intro3.png';
 import colors from '../../themes/Colors';
+import { homeScreen } from '../../navigation/pushScreen';
 
 const data = {
   intro: [
@@ -72,7 +73,7 @@ const Intro = () => {
                 }}
                 inactiveDotScale={0.6}
               />
-              <TouchableOpacity style={styles.btnStart}>
+              <TouchableOpacity style={styles.btnStart} onPress={() => homeScreen()}>
                 <Text style={styles.txtStart}>Bắt đầu</Text>
               </TouchableOpacity>
             </View>
