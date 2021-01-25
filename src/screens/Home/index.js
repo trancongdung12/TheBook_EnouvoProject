@@ -1,25 +1,28 @@
-//import liraries
-import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-
-// create a component
-const MyComponent = () => {
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { loginScreen } from '../../navigation/pushScreen';
+const Home = (props) => {
   return (
     <View style={styles.container}>
-      <Text>MyComponent</Text>
+      <TouchableOpacity style={styles.btnNavigation} onPress={() => loginScreen()}>
+        <Text style={styles.txtNavigation}>MyComponent</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-// define your styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2c3e50',
+  },
+  btnNavigation: {
+    width: 150,
+    height: 40,
+    backgroundColor: '#00ffff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
-
-//make this component available to the app
-export default MyComponent;
+export default Home;
