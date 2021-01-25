@@ -1,9 +1,5 @@
-/**
- * @format
- */
+import { registerScreens } from './src/navigation/registerScreen';
+registerScreens();
 
-import {AppRegistry} from 'react-native';
-import App from './src/screens/Intro/index';
-import {name as appName} from './app.json';
-
-AppRegistry.registerComponent(appName, () => App);
+import { homeScreen } from './src/navigation/pushScreen';
+homeScreen();
