@@ -1,4 +1,3 @@
-
 import { registerScreens } from './src/navigation/registerScreen';
 registerScreens();
 
