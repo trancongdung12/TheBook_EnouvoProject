@@ -1,5 +1,6 @@
 import { all } from 'redux-saga/effects';
-import appSagas from './AppRedux/sagas';
+import appSaga from './AppRedux/sagas';
+import signUpSaga from './AuthRedux/Register/sagas';
 export default function* root() {
-  yield all([...appSagas]);
+  yield all([...appSaga, ...signUpSaga]);
 }
