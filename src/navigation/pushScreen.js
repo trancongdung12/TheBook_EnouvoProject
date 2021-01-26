@@ -1,4 +1,6 @@
 import { Navigation } from 'react-native-navigation';
+import Icon from 'react-native-vector-icons/thebook-appicon';
+
 import Icons from 'react-native-vector-icons/thebook-appicon';
 export const pushScreen = (componentId, screenApp, passProps, title, visibles) => {
   Navigation.push(componentId, {
@@ -40,24 +42,46 @@ export const loginScreen = () => {
   });
 };
 export const homeScreen = () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Home',
-              options: {
-                topBar: {
-                  visible: true,
+  Promise.all([
+    Icons.getImageSource('ic-home', 30),
+    Icons.getImageSource('ic-menu', 25),
+    Icons.getImageSource('ic-search', 25),
+  ]).then(([listBook, menu, search]) => {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'Home',
+                options: {
+                  topBar: {
+                    visible: true,
+                    leftButtons: [
+                      {
+                        id: 'sideMenu',
+                        icon: menu,
+                        fontSize: 10,
+                      },
+                    ],
+                    rightButtons: [
+                      {
+                        id: 'S',
+                        icon: search,
+                        fontSize: 10,
+                      },
+                    ],
+                  },
                 },
               },
             },
-          },
-        ],
+          ],
+        },
       },
-    },
+    });
   });
+
+  bottomTabs();
 };
 
 export const introScreen = () => {
