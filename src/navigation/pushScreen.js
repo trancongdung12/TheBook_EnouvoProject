@@ -1,5 +1,5 @@
 import { Navigation } from 'react-native-navigation';
-
+import Icons from 'react-native-vector-icons/thebook-appicon';
 export const pushScreen = (componentId, screenApp, passProps, title) => {
   Navigation.push(componentId, {
     component: {
@@ -49,7 +49,7 @@ export const homeScreen = () => {
               name: 'Home',
               options: {
                 topBar: {
-                  visible: false,
+                  visible: true,
                 },
               },
             },
@@ -60,28 +60,16 @@ export const homeScreen = () => {
   });
 };
 
-// SettingsScreen.options = {
-//   topBar: {
-//     title: {
-//       text: 'Settings',
-//     },
-//   },
-//   bottomTab: {
-//     text: 'Settings',
-//   },
-// };
-// Home.options = {
-//   topBar: {
-//     title: {
-//       text: 'home',
-//     },
-//   },
-//   bottomTab: {
-//     text: 'home',
-//   },
-// };
 export const bottomTabs = () => {
-  Navigation.events().registerAppLaunchedListener(async () => {
+  Promise.all([
+    Icons.getImageSource('ic-home', 30),
+    Icons.getImageSource('ic-order', 30),
+    Icons.getImageSource('ic-notification-1', 30),
+    Icons.getImageSource('ic-user', 30),
+    Icons.getImageSource('ic-library', 30),
+    Icons.getImageSource('ic-menu', 25),
+    Icons.getImageSource('ic-search', 25),
+  ]).then(([listBook, orderHistory, notifications, user, library, menu, search]) => {
     Navigation.setRoot({
       root: {
         bottomTabs: {
@@ -93,9 +81,43 @@ export const bottomTabs = () => {
                     component: {
                       name: 'Home',
                       options: {
+                        topBar: {
+                          visible: true,
+                          leftButtons: [
+                            {
+                              icon: menu,
+                              fontSize: 10,
+                            },
+                          ],
+                          rightButtons: [
+                            {
+                              icon: search,
+                              fontSize: 10,
+                            },
+                          ],
+                        },
                         bottomTab: {
-                          text: 'Sach',
-                          fontSize: 10,
+                          icon: listBook,
+                          fontSize: 30,
+                          animate: false,
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              stack: {
+                children: [
+                  {
+                    component: {
+                      name: 'Login',
+                      options: {
+                        visible: false,
+                        bottomTab: {
+                          icon: orderHistory,
+                          fontSize: 30,
                           animate: false,
                         },
                       },
@@ -112,7 +134,9 @@ export const bottomTabs = () => {
                       name: 'Login',
                       options: {
                         bottomTab: {
-                          text: 'Bao',
+                          icon: user,
+                          fontSize: 30,
+                          animate: false,
                         },
                       },
                     },
@@ -128,7 +152,7 @@ export const bottomTabs = () => {
                       name: 'Login',
                       options: {
                         bottomTab: {
-                          text: 'Profile',
+                          icon: notifications,
                         },
                       },
                     },
@@ -144,23 +168,7 @@ export const bottomTabs = () => {
                       name: 'Login',
                       options: {
                         bottomTab: {
-                          text: 'Thong báo',
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Login',
-                      options: {
-                        bottomTab: {
-                          text: 'Home',
+                          icon: library,
                         },
                       },
                     },
@@ -173,4 +181,5 @@ export const bottomTabs = () => {
       },
     });
   });
+  // });
 };

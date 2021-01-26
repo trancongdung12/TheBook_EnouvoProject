@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { loginScreen } from '../../navigation/pushScreen';
-const Home = (props) => {
+import { bottomTabs } from '../../navigation/pushScreen';
+const Home = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.btnNavigation} onPress={() => loginScreen()}>
@@ -11,7 +11,7 @@ const Home = (props) => {
     </View>
   );
 };
-
+bottomTabs();
 const styles = StyleSheet.create({
   container: {
     flex: 1,
