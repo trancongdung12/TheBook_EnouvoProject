@@ -1,0 +1,92 @@
+import React from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { Dimensions } from 'react-native';
+import Star from './ItemStar';
+import book from '../assets/book.jpg';
+import Icon from 'react-native-vector-icons/thebook-appicon';
+import colors from '../themes/Colors';
+
+const windowWidth = Dimensions.get('window').width;
+// create a component
+const Book = (props) => {
+  return (
+    <View style={styles.itemBook}>
+      <View style={styles.layoutBook}>
+        <Image style={styles.imgBook} source={book} />
+        <View style={styles.infoBook}>
+          <Text style={styles.titleBook}>Tên bạn là gì ?</Text>
+          <Text style={styles.authorBook}>Shinkai Makolo</Text>
+          <View style={styles.starCommentBook}>
+            <Star starSize={4} />
+            <Text style={styles.commentCount}>324</Text>
+          </View>
+          <View style={styles.layoutStock}>
+            <View style={styles.itemStock}>
+              <Icon name="ic-book-1" size={15} color={colors.primary} />
+              <Text style={[styles.textStock, props.isOutStock && { color: colors.primary }]}>
+                {props.isOutStock ? 'hết sách' : props.qtyBook + ' quyển sách'}
+              </Text>
+            </View>
+            <View style={styles.itemStock}>
+              <Icon name="ic-price" size={15} color={colors.primary} />
+              <Text style={styles.textStock}>36.000</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <Icon name="ic-delete" size={13} color={colors.txtLevel2} />
+    </View>
+  );
+};
+
+// define your styles
+const styles = StyleSheet.create({
+  itemBook: {
+    marginTop: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  layoutBook: {
+    flexDirection: 'row',
+  },
+  imgBook: {
+    height: 130,
+    width: 90,
+    borderRadius: 5,
+  },
+  infoBook: {
+    marginLeft: 15,
+    width: windowWidth - 180,
+  },
+  titleBook: {
+    fontSize: 16,
+    color: colors.txtLevel1,
+  },
+  authorBook: {
+    fontSize: 12,
+    color: colors.txtLevel2,
+  },
+  starCommentBook: {
+    flexDirection: 'row',
+    marginTop: 3,
+  },
+  commentCount: {
+    fontSize: 10,
+    color: colors.txtLevel2,
+    marginLeft: 4,
+  },
+  layoutStock: {
+    marginTop: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  itemStock: {
+    flexDirection: 'row',
+  },
+  textStock: {
+    fontSize: 13,
+    color: colors.txtLevel2,
+    marginLeft: 4,
+  },
+});
+export default Book;

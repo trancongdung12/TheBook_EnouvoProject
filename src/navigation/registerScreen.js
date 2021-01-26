@@ -7,7 +7,7 @@ import Home from '../screens/Home/index';
 import Login from '../screens/Auth/Login';
 import Intro from '../screens/Intro/index';
 import Detail from '../screens/Detail/index';
-
+import Cart from '../screens/Cart';
 import Register from '../screens/Auth/Register';
 function ReduxProvider(Component) {
   return (props) => (
@@ -39,5 +39,10 @@ export function registerScreens() {
     'Register',
     () => ReduxProvider(Register),
     () => Register,
+  );
+  Navigation.registerComponent(
+    'Cart',
+    () => ReduxProvider(Cart),
+    () => Cart,
   );
 }

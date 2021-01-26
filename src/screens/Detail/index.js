@@ -19,10 +19,20 @@ const Detail = () => {
   const [model, setModal] = useState(false);
   const description =
     'Kimi no Na wa là tác phẩm điện ảnh mới của đạo diễn Makoto Shinkai (đạo diễn 5cm/s, The Garden of Words, Voices of a Distant Star). Mitsuha - cô nữ sinh sống tại một vùng quê Nhật Bản, chán ngán cuộc sống hiện tại và luôn mong';
-
+  const closeModal = () => {
+    setModal(false);
+  };
   return (
-    <ScrollView style={styles.container}>
-      {model && <AlertMessage />}
+    <ScrollView style={[styles.container, model && { opacity: 0.3 }]}>
+      {model && (
+        <AlertMessage
+          isTwoBtn={true}
+          title="Sách này hiện đã được mượn hết Bạn có muốn nhận thông báo ngay khi có lại"
+          textFirstBtn="Nhận thông báo"
+          textSecondBtn="Không, cảm ơn"
+          closeModalMain={closeModal}
+        />
+      )}
       <View style={styles.layoutDetail}>
         <Image style={styles.bookImg} source={book} />
         <Text style={styles.bookTitle}>Để con được ốm thêm vài lần</Text>
@@ -59,28 +69,6 @@ const Detail = () => {
             <Text style={styles.textViewMore}> {isMore ? '' : 'xem hết'}</Text>
           </TouchableWithoutFeedback>
         </View>
-        <View style={styles.layoutRelated}>
-          <Text style={styles.titleRelated}>Sách tương tự</Text>
-          <Text style={styles.textViewMore}>xem hết</Text>
-        </View>
-        {/* <View style={styles.sliderRelated}>
-          <View style={styles.bookRelated}>
-            <Image style={styles.bookRelatedImg} source={book} />
-            <Text style={styles.titleBookRelated}>Để con được ốm</Text>
-            <Text style={styles.authorBookRelated}>Nguyễn Trí Hoàn</Text>
-            <View style={styles.layoutStar}>
-              <View style={styles.layoutStarBookRelated}>
-                <Icon name="star" size={10} color={colors.primary} />
-                <Icon name="star" size={10} color={colors.primary} />
-                <Icon name="star" size={10} color={colors.primary} />
-                <Icon name="star" size={10} color={colors.primary} />
-                <Icon name="ic-star-pre" size={10} color={colors.txtLevel2} />
-              </View>
-              <Text style={styles.textPriceBookRelated}>1,278</Text>
-            </View>
-          </View>
-        </View> */}
-
         <ItemBoook />
         <View style={styles.layoutComment}>
           <Text style={styles.titleComment}>Nhận xét</Text>

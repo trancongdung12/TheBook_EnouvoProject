@@ -5,24 +5,39 @@ import colors from '../themes/Colors';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-export default function AlertMessage() {
+export default function AlertMessage(props) {
   const [alertVisible, setAlertVisible] = useState(true);
+  const closeModel = () => {
+    setAlertVisible(false);
+    props.closeModalMain();
+  };
   return (
     <View style={styles.centerView}>
       <Modal animationType="slide" transparent={true} visible={alertVisible}>
         <View>
           <View style={styles.modalView}>
-            <Text style={styles.textStyles}>
-              Sách này hiện đã được mượn hết Bạn có muốn nhận thông báo ngay khi có lại
-            </Text>
-            <View style={styles.layoutButton}>
-              <TouchableOpacity style={styles.btnNotification}>
-                <Text style={styles.textNotification}>Nhận thông báo</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btnNo} onPress={() => setAlertVisible(false)}>
-                <Text style={styles.textNo}>Không, cảm ơn</Text>
-              </TouchableOpacity>
-            </View>
+            <Text style={styles.textStyles}>{props.title}</Text>
+            {props.isTwoBtn ? (
+              <View style={styles.layoutButton}>
+                <TouchableOpacity
+                  style={[
+                    styles.btnNotification,
+                    props.isSecondaryColor && { backgroundColor: colors.secondary },
+                  ]}
+                >
+                  <Text style={styles.textNotification}>{props.textFirstBtn}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btnNo} onPress={() => closeModel()}>
+                  <Text style={styles.textNo}>{props.textSecondBtn}</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View style={styles.layoutButtonOne}>
+                <TouchableOpacity style={styles.btnNotification} onPress={() => closeModel()}>
+                  <Text style={styles.textNotification}>{props.textFirstBtn}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </View>
       </Modal>
@@ -37,9 +52,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   modalView: {
-    marginTop: (windowHeight - 105) / 2,
+    marginTop: (windowHeight - 120) / 2,
     alignSelf: 'center',
-    height: 105,
+    height: 120,
     width: windowWidth - 30,
     backgroundColor: 'white',
     borderRadius: 5,
@@ -51,8 +66,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.85,
     elevation: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
   },
   textStyles: {
     textAlign: 'center',
@@ -62,7 +77,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 15,
-    paddingHorizontal: 15,
+    paddingHorizontal: 25,
+  },
+  layoutButtonOne: {
+    marginTop: 15,
+    alignSelf: 'center',
   },
   btnNotification: {
     backgroundColor: colors.primary,
