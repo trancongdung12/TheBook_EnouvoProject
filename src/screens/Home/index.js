@@ -1,22 +1,31 @@
-
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { introScreen } from '../../navigation/pushScreen';
+import ItemBoook from '../../components/itemBoook';
 const Home = (props) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.btnNavigation} onPress={() => introScreen()}>
-        <Text style={styles.txtNavigation}>MyComponent</Text>
-      </TouchableOpacity>
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.layoutItem}>
+        <ItemBoook />
+      </View>
+      <View style={styles.layoutItem}>
+        <ItemBoook />
+      </View>
+      <View style={styles.layoutItem}>
+        <ItemBoook />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginLeft: 15,
+    marginTop: 20,
+  },
+  layoutItem: {
+    marginTop: 20,
   },
   btnNavigation: {
     width: 150,

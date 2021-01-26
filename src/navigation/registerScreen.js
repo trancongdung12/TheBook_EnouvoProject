@@ -5,6 +5,7 @@ import store from '../redux/store';
 import Home from '../screens/Home/index';
 import Login from '../screens/Auth/Login';
 import Intro from '../screens/Intro/index';
+import Detail from '../screens/Detail/index';
 
 function ReduxProvider(Component) {
   return (props) => (
@@ -29,5 +30,10 @@ export function registerScreens() {
     'Login',
     () => ReduxProvider(Login),
     () => Login,
+  );
+  Navigation.registerComponent(
+    'Detail',
+    () => ReduxProvider(Detail),
+    () => Detail,
   );
 }

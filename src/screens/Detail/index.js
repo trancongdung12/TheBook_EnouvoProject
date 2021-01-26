@@ -12,6 +12,7 @@ import {
 import book from '../../assets/book.jpg';
 import colors from '../../themes/Colors';
 import Icon from 'react-native-vector-icons/thebook-appicon';
+import ItemBoook from '../../components/itemBoook';
 const Detail = () => {
   const [isMore, setIsMore] = useState(false);
 
@@ -60,7 +61,7 @@ const Detail = () => {
           <Text style={styles.titleRelated}>Sách tương tự</Text>
           <Text style={styles.textViewMore}>xem hết</Text>
         </View>
-        <View style={styles.sliderRelated}>
+        {/* <View style={styles.sliderRelated}>
           <View style={styles.bookRelated}>
             <Image style={styles.bookRelatedImg} source={book} />
             <Text style={styles.titleBookRelated}>Để con được ốm</Text>
@@ -76,7 +77,9 @@ const Detail = () => {
               <Text style={styles.textPriceBookRelated}>1,278</Text>
             </View>
           </View>
-        </View>
+        </View> */}
+
+        <ItemBoook />
         <View style={styles.layoutComment}>
           <Text style={styles.titleComment}>Nhận xét</Text>
           <TouchableOpacity style={styles.btnComment}>

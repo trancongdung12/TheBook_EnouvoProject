@@ -58,7 +58,6 @@ export const homeScreen = () => {
       },
     },
   });
-  bottomTabs();
 };
 
 export const introScreen = () => {
@@ -69,6 +68,27 @@ export const introScreen = () => {
           {
             component: {
               name: 'Intro',
+              options: {
+                topBar: {
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+};
+
+export const detailScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Detail',
               options: {
                 topBar: {
                   visible: false,

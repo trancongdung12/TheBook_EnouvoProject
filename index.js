@@ -1,5 +1,5 @@
 import { registerScreens } from './src/navigation/registerScreen';
 registerScreens();
 
-import { introScreen } from './src/navigation/pushScreen';
-introScreen();
+import { introScreen, slideScreen, detailScreen, homeScreen } from './src/navigation/pushScreen';
+homeScreen();
