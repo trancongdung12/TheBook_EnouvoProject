@@ -36,6 +36,8 @@ export function registerScreens() {
     'Detail',
     () => ReduxProvider(Detail),
     () => Detail,
+  );
+  Navigation.registerComponent(
     'Register',
     () => ReduxProvider(Register),
     () => Register,

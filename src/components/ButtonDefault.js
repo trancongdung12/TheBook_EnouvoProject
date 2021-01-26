@@ -3,7 +3,10 @@ import { Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import Color from '../themes/Colors';
 const ButtonDefault = (props) => {
   return (
-    <TouchableOpacity style={props.checkButton ? styles.btnDefault : styles.btnDefaults}>
+    <TouchableOpacity
+      style={props.checkButton ? styles.btnDefault : styles.btnDefaults}
+      onPress={props.onSubmit}
+    >
       <Text style={props.checkButton ? styles.txtBtnDefault : styles.txtBtnDefaults}>
         {props.title}
       </Text>
@@ -14,7 +17,7 @@ const ButtonDefault = (props) => {
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   btnDefault: {
-    width: width / 2 - 50,
+    width: width / 2 - 60,
     height: 40,
     borderRadius: 2,
     backgroundColor: Color.secondary,
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   btnDefaults: {
-    width: width / 2 - 50,
+    width: width / 2 - 60,
     height: 40,
     borderRadius: 2,
     marginLeft: 20,

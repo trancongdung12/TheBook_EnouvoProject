@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import Icons from 'react-native-vector-icons/thebook-appicon';
+import { pushScreen } from '../../navigation/pushScreen';
 import Colors from '../../themes/Colors';
 import Input from '../../components/TextInput';
 import ButtonDefault from '../../components/ButtonDefault';
 const { width } = Dimensions.get('window');
-const Login = () => {
+const Login = (props) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const onRegister = () => {
+    pushScreen(props.componentId, 'Register', '', '', false);
+  };
+  const onLogin = () => {
+    console.log(email);
+    console.log(password);
+  };
   return (
     <ScrollView>
       <View style={styles.bodyLogin}>
@@ -14,12 +24,24 @@ const Login = () => {
           <Text style={styles.txtTitle}>Login</Text>
         </View>
         <View style={styles.contentLogin}>
-          <Input title="Tài Khoản" name="Nhập Tài Khoản" />
-          <Input title="Mật khẩu" name="Nhập Nhập mật khẩu" />
+          <Input
+            title="Tài Khoản"
+            name="Nhập Tài Khoản"
+            txtChange={(text) => setEmail(text)}
+            typeInput="emailAddress"
+            secureTextEntry={false}
+          />
+          <Input
+            title="Mật khẩu"
+            name="Nhập Nhập mật khẩu"
+            txtChange={(text) => setPassword(text)}
+            typeInput="password"
+            secureTextEntry={true}
+          />
         </View>
         <View style={styles.bottomLogin}>
-          <ButtonDefault checkButton={true} title="Đăng nhập" />
-          <ButtonDefault checkButton={false} title="Đăng kí" />
+          <ButtonDefault checkButton={true} title="Đăng nhập" onSubmit={onLogin} />
+          <ButtonDefault checkButton={false} title="Đăng kí"  onSubmit={onRegister} />
         </View>
         <TouchableOpacity style={styles.btnForgot}>
           <Text style={styles.txtForgot}>Quên mật khẩu</Text>
