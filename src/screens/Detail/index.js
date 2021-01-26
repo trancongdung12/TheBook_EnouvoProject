@@ -12,14 +12,17 @@ import {
 import book from '../../assets/book.jpg';
 import colors from '../../themes/Colors';
 import Icon from 'react-native-vector-icons/thebook-appicon';
+import ItemBoook from '../../components/itemBoook';
+import AlertMessage from '../../components/AlertMessage';
 const Detail = () => {
   const [isMore, setIsMore] = useState(false);
-
+  const [model, setModal] = useState(false);
   const description =
     'Kimi no Na wa là tác phẩm điện ảnh mới của đạo diễn Makoto Shinkai (đạo diễn 5cm/s, The Garden of Words, Voices of a Distant Star). Mitsuha - cô nữ sinh sống tại một vùng quê Nhật Bản, chán ngán cuộc sống hiện tại và luôn mong';
 
   return (
     <ScrollView style={styles.container}>
+      {model && <AlertMessage />}
       <View style={styles.layoutDetail}>
         <Image style={styles.bookImg} source={book} />
         <Text style={styles.bookTitle}>Để con được ốm thêm vài lần</Text>
@@ -60,23 +63,7 @@ const Detail = () => {
           <Text style={styles.titleRelated}>Sách tương tự</Text>
           <Text style={styles.textViewMore}>xem hết</Text>
         </View>
-        <View style={styles.sliderRelated}>
-          <View style={styles.bookRelated}>
-            <Image style={styles.bookRelatedImg} source={book} />
-            <Text style={styles.titleBookRelated}>Để con được ốm</Text>
-            <Text style={styles.authorBookRelated}>Nguyễn Trí Hoàn</Text>
-            <View style={styles.layoutStar}>
-              <View style={styles.layoutStarBookRelated}>
-                <Icon name="star" size={10} color={colors.primary} />
-                <Icon name="star" size={10} color={colors.primary} />
-                <Icon name="star" size={10} color={colors.primary} />
-                <Icon name="star" size={10} color={colors.primary} />
-                <Icon name="ic-star-pre" size={10} color={colors.txtLevel2} />
-              </View>
-              <Text style={styles.textPriceBookRelated}>1,278</Text>
-            </View>
-          </View>
-        </View>
+        <ItemBoook />
         <View style={styles.layoutComment}>
           <Text style={styles.titleComment}>Nhận xét</Text>
           <TouchableOpacity style={styles.btnComment}>
@@ -117,7 +104,7 @@ const Detail = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.btnAddToCart}>
+      <TouchableOpacity style={styles.btnAddToCart} onPress={() => setModal(true)}>
         <Text style={styles.textAddToCart}>Thêm vào giỏ</Text>
       </TouchableOpacity>
     </ScrollView>
