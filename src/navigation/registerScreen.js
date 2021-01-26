@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
-import Home from '../screens/Home/index';
+import Home from '../screens/Detail';
 import Login from '../screens/Auth/Login';
 
 function ReduxProvider(Component) {
