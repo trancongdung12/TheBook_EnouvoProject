@@ -1,4 +1,5 @@
 import { Navigation } from 'react-native-navigation';
+import Icon from 'react-native-vector-icons/thebook-appicon';
 
 export const pushScreen = (componentId, screenApp, passProps, title) => {
   Navigation.push(componentId, {
