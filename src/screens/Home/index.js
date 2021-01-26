@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { introScreen } from '../../navigation/pushScreen';
 import ItemBoook from '../../components/itemBoook';
+
 const Home = (props) => {
   return (
     <ScrollView style={styles.container}>
