@@ -11,14 +11,27 @@ import BookTypes from '../../redux/HomeRedux/actions';
 
 const Home = (props) => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.bookTypes.responseDataType);
+  // const [data, setData] = useState(0);
+  const datas = useSelector((state) => state.bookTypes.responseDataType.data);
+  // useEffect(() => {
+  //   console.log(data);
+  //   setData(data);
+  // }, [datas]);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.layoutItem}>
         <ListBook />
         <ScrollView horizontal={true}>
-          {data.data.map((item, index) => {
-            return <ItemBoook key={index} data={item} />;
+          {datas.map((item, index) => {
+            return (
+              <ItemBoook
+                key={index}
+                image={item.medias[0]}
+                title={item.title}
+                authors={item.authors[0].name}
+                price={item.price}
+              />
+            );
           })}
         </ScrollView>
         <Text />

@@ -2,7 +2,6 @@ import { call, takeLatest, put } from 'redux-saga/effects';
 import LoginActions, { LoginTypes } from './actions';
 import BookTypesActions from '../../HomeRedux/actions';
 import { userLoginApi } from '../../../api/auth';
-import { homeScreen } from '../../../navigation/pushScreen';
 export function* userLogin({ data }) {
   try {
     const response = yield call(userLoginApi, data);
@@ -12,7 +11,6 @@ export function* userLogin({ data }) {
     };
     yield put(LoginActions.userLoginSuccess(newResponse));
     yield put(BookTypesActions.getBookTypes());
-    homeScreen();
   } catch (error) {
     console.log(error);
     yield put(LoginActions.userLoginFailure(error));

@@ -8,11 +8,11 @@ const itemBoook = (props) => {
   return (
     <View style={styles.sliderRelated}>
       <View style={styles.bookRelated}>
-        <Image style={styles.bookRelatedImg} source={book} />
+        <Image style={styles.bookRelatedImg} source={{ uri: props.image }} />
         <Text style={styles.titleBookRelated} numberOfLines={1}>
-          {props.data.title}
+          {props.title}
         </Text>
-        <Text style={styles.authorBookRelated}>{props.data.authors[0].name}</Text>
+        <Text style={styles.authorBookRelated}>{props.authors}</Text>
         <View style={styles.layoutStar}>
           <View style={styles.layoutStarBookRelated}>
             <Icon name="star" size={10} color={colors.primary} />
@@ -21,7 +21,7 @@ const itemBoook = (props) => {
             <Icon name="star" size={10} color={colors.primary} />
             <Icon name="ic-star-pre" size={10} color={colors.txtLevel2} />
           </View>
-          <Text style={styles.textPriceBookRelated}>{props.data.price} đ</Text>
+          <Text style={styles.textPriceBookRelated}>{props.price} đ</Text>
         </View>
       </View>
     </View>
