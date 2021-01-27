@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -25,9 +25,13 @@ const Profile = () => {
     setModal(false);
   };
   const dispatch = useDispatch();
-  const oncallProfile = () => {
+  useEffect(() => {
     dispatch(userActions.userInfo());
-  };
+    console.log('run effect');
+  }, []);
+  // const oncallProfile = () => {
+  //   dispatch(userActions.userInfo());
+  // };
   const user = useSelector((state) => state.user.data);
 
   console.log('====================================');
@@ -58,7 +62,7 @@ const Profile = () => {
       <View style={styles.layoutInfo}>
         <Text style={styles.textName}>{user ? user.fullName : 'No name'}</Text>
         <View style={styles.containInfo}>
-          <TouchableOpacity style={styles.layoutPlatinum} onPress={oncallProfile}>
+          <TouchableOpacity style={styles.layoutPlatinum}>
             <Icon name="ic-titan" size={20} color={colors.platinum} />
             <Text style={styles.textPlatinum}>Platinum</Text>
           </TouchableOpacity>

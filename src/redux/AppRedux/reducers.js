@@ -7,11 +7,11 @@ export const INITIAL_STATE = Immutable({
   AppTypes: '',
 });
 
-export const userLoadingApp = (state, { response }) =>
+export const userStartApp = (state, { response }) =>
   state.merge({ loadingApp: true, AppTypes: '' });
 
 const reducer = makeReducerCreator(INITIAL_STATE, {
-  [AppTypes.START_APP]: userLoadingApp,
+  [AppTypes.START_APP]: userStartApp,
 });
 
 export default reducer;

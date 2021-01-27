@@ -1,6 +1,5 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import userActions, { UserTypes } from './actions';
-import { profileScreen } from '../../navigation/pushScreen';
 import { getProfile, userChangePasswordApi, userEditProfileApi } from '../../api/users';
 import http from '../../api/http';
 export function* userInfoSaga() {
