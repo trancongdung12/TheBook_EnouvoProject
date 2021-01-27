@@ -14,7 +14,7 @@ export const userGetNotification = (state, { response }) =>
 export const userGetNotificationSuccess = (state, { response }) =>
   state.merge({
     loadingNotification: false,
-    responseNotification: response.data,
+    responseNotification: response,
     typeLogin: 'User notification success',
   });
 const reducer = makeReducerCreator(INITIAL_STATE, {

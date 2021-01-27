@@ -171,7 +171,8 @@ export const bottomTabs = () => {
     Icons.getImageSource('ic-library', 30),
     Icons.getImageSource('ic-menu', 25),
     Icons.getImageSource('ic-search', 25),
-  ]).then(([listBook, orderHistory, notifications, user, library, menu, search]) => {
+    Icons.getImageSource('filter', 25),
+  ]).then(([listBook, orderHistory, notifications, user, library, menu, search, filter]) => {
     Navigation.setRoot({
       root: {
         bottomTabs: {
@@ -214,9 +215,20 @@ export const bottomTabs = () => {
                 children: [
                   {
                     component: {
-                      name: 'Login',
+                      name: 'Orders',
                       options: {
                         visible: false,
+                        topBar: {
+                          title: {
+                            text: 'Đơn hàng của bạn',
+                          },
+                          rightButtons: [
+                            {
+                              icon: filter,
+                              fontSize: 10,
+                            },
+                          ],
+                        },
                         bottomTab: {
                           icon: orderHistory,
                           fontSize: 30,

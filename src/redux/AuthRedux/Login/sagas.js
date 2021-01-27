@@ -4,6 +4,7 @@ import { userLoginApi } from '../../../api/auth';
 import { userStartApp } from '../../AppRedux/actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import BookTypesActions from '../../HomeRedux/actions';
+import NotificationActions from '../../NotificationRedux/actions';
 export function* userLogin({ data }) {
   try {
     const response = yield call(userLoginApi, data);
@@ -13,7 +14,9 @@ export function* userLogin({ data }) {
     };
     yield AsyncStorage.setItem('token', response.data.token.access_token);
     yield put(LoginActions.userLoginSuccess(newResponse));
-    yield put(BookTypesActions.getBookTypes());
+    yield put(NotificationActions.userGetNotification());
+    // yield put(BookTypesActions.getBookTypes());
+    yield put(userStartApp());
   } catch (error) {
     console.log(error);
     yield put(LoginActions.userLoginFailure(error));
