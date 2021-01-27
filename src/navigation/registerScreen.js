@@ -13,7 +13,7 @@ import Notification from '../screens/Notification/index';
 import Profile from '../screens/User/Profile';
 import Setting from '../screens/User/Setting';
 import Orders from '../screens/Orders/index';
-
+import Library from '../screens/Library';
 function ReduxProvider(Component) {
   return (props) => (
     <Provider store={store}>
@@ -67,9 +67,14 @@ export function registerScreens() {
     () => ReduxProvider(Setting),
     () => Setting,
   );
-    Navigation.registerComponent(
+  Navigation.registerComponent(
     'Orders',
     () => ReduxProvider(Orders),
     () => Orders,
+  );
+  Navigation.registerComponent(
+    'Library',
+    () => ReduxProvider(Library),
+    () => Library,
   );
 }

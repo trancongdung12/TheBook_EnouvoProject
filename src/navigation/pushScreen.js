@@ -288,8 +288,12 @@ export const bottomTabs = () => {
                 children: [
                   {
                     component: {
-                      name: 'Login',
+                      name: 'Library',
                       options: {
+                        topBar: {
+                          height: 0,
+                          visible: false,
+                        },
                         bottomTab: {
                           icon: library,
                         },
