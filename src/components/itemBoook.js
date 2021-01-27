@@ -4,13 +4,15 @@ import book from '../assets/book.jpg';
 import colors from '../themes/Colors';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 
-const itemBoook = () => {
+const itemBoook = (props) => {
   return (
     <View style={styles.sliderRelated}>
       <View style={styles.bookRelated}>
         <Image style={styles.bookRelatedImg} source={book} />
-        <Text style={styles.titleBookRelated}>Để con được ốm</Text>
-        <Text style={styles.authorBookRelated}>Nguyễn Trí Hoàn</Text>
+        <Text style={styles.titleBookRelated} numberOfLines={1}>
+          {props.data.title}
+        </Text>
+        <Text style={styles.authorBookRelated}>{props.data.authors[0].name}</Text>
         <View style={styles.layoutStar}>
           <View style={styles.layoutStarBookRelated}>
             <Icon name="star" size={10} color={colors.primary} />
@@ -19,7 +21,7 @@ const itemBoook = () => {
             <Icon name="star" size={10} color={colors.primary} />
             <Icon name="ic-star-pre" size={10} color={colors.txtLevel2} />
           </View>
-          <Text style={styles.textPriceBookRelated}>1,278</Text>
+          <Text style={styles.textPriceBookRelated}>{props.data.price} đ</Text>
         </View>
       </View>
     </View>
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.txtLevel1,
     marginTop: 8,
+    width: 120,
   },
   authorBookRelated: {
     color: colors.txtLevel2,

@@ -3,7 +3,7 @@ import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 // import Screen
-import Home from '../components/SlideBar';
+import Home from '../screens/Home/index';
 import Login from '../screens/Auth/Login';
 import Intro from '../screens/Intro/index';
 import Detail from '../screens/Detail/index';
