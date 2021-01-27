@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions, Alert } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { View, Text, ScrollView, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import SignUpTypes from '../../redux/AuthRedux/Register/actions';
 // import theme
 import { loginScreen } from '../../navigation/pushScreen';
@@ -19,6 +19,7 @@ const Register = () => {
   const [passAgain, setPassAgain] = useState('');
   // function
   const dispatch = useDispatch();
+  const checkLoadingSignUp = useSelector((state) => state.signUp.loadingSignUp);
   const onRegister = () => {
     if (
       name === '' ||
@@ -28,9 +29,11 @@ const Register = () => {
       passAgain === '' ||
       password === ''
     ) {
-      Alert('Bạn phải nhập đầy đủ thông tin!');
+      // eslint-disable-next-line no-alert
+      alert('Bạn phải nhập đầy đủ thông tin!');
     } else if (password !== passAgain) {
-      Alert('Mật khẩu của bạn không khớp !');
+      // eslint-disable-next-line no-alert
+      alert('Mật khẩu của bạn không khớp !');
     } else {
       const data = {
         firstName: name,
@@ -98,6 +101,7 @@ const Register = () => {
             checkPass={true}
           />
         </View>
+        {checkLoadingSignUp && <ActivityIndicator size="small" color="#0000ff" />}
         <View style={styles.bottomRegister}>
           <ButtonDefault checkButton={true} title="Đăng Kí" onSubmit={onRegister} />
           <ButtonDefault checkButton={false} title="Đăng nhập" onSubmit={loginScreen} />

@@ -80,7 +80,6 @@ export const homeScreen = () => {
       },
     });
   });
-
   bottomTabs();
 };
 
@@ -235,8 +234,13 @@ export const bottomTabs = () => {
                 children: [
                   {
                     component: {
-                      name: 'Login',
+                      name: 'Notification',
                       options: {
+                        topBar: {
+                          title: {
+                            text: 'Thông báo',
+                          },
+                        },
                         bottomTab: {
                           icon: notifications,
                         },

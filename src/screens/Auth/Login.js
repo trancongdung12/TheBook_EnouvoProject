@@ -6,11 +6,11 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-  Alert,
+  ActivityIndicator,
 } from 'react-native';
 import Icons from 'react-native-vector-icons/thebook-appicon';
 import { pushScreen } from '../../navigation/pushScreen';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginActions from '../../redux/AuthRedux/Login/actions';
 // import components
 import Colors from '../../themes/Colors';
@@ -21,19 +21,21 @@ const Login = (props) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const checkLoadingLogin = useSelector((state) => state.login.loadingLogin);
   const onRegister = () => {
     pushScreen(props.componentId, 'Register', '', '', false);
   };
   const onLogin = () => {
-    if (userName === '' || password === '') {
-      Alert('Bạn phải nhập đầy đủ thông tin !');
+    const dataLogin = {
+      grant_type: 'password',
+      username: userName,
+      password: password,
+    };
+    if (dataLogin.userName === '' || dataLogin.password === '') {
+      // eslint-disable-next-line no-alert
+      alert('Bạn phải nhập đầy đủ thông tin !');
     } else {
-      const data = {
-        grant_type: 'password',
-        username: userName,
-        password: password,
-      };
-      dispatch(LoginActions.userLogin(data));
+      dispatch(LoginActions.userLogin(dataLogin));
     }
   };
   return (
@@ -59,6 +61,7 @@ const Login = (props) => {
             secureTextEntry={true}
           />
         </View>
+        {checkLoadingLogin && <ActivityIndicator size="small" color="#0000ff" />}
         <View style={styles.bottomLogin}>
           <ButtonDefault checkButton={true} title="Đăng nhập" onSubmit={onLogin} />
           <ButtonDefault checkButton={false} title="Đăng kí" onSubmit={onRegister} />
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
     marginTop: 22.5,
     marginLeft: 20,
     marginRight: 20,
+    marginBottom: 20,
   },
   bottomLogin: {
     marginTop: 30,

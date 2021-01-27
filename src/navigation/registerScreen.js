@@ -3,12 +3,13 @@ import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 // import Screen
-import Home from '../components/SlideBar';
+import Home from '../screens/Home/index';
 import Login from '../screens/Auth/Login';
 import Intro from '../screens/Intro/index';
 import Detail from '../screens/Detail/index';
 import Cart from '../screens/Cart';
 import Register from '../screens/Auth/Register';
+import Notification from '../screens/Notification/index';
 function ReduxProvider(Component) {
   return (props) => (
     <Provider store={store}>
@@ -46,5 +47,10 @@ export function registerScreens() {
     'Cart',
     () => ReduxProvider(Cart),
     () => Cart,
+  );
+  Navigation.registerComponent(
+    'Notification',
+    () => ReduxProvider(Notification),
+    () => Notification,
   );
 }
