@@ -7,6 +7,8 @@ const colors = {
   txtLevel1: '#262626',
   txtLevel2: '#ababab',
   txtLevel3: '#7f7f7f',
+  platinum: '#e584fc',
+  btnLevel2: '#696969',
 };
 
 export default colors;
