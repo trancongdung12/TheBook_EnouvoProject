@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Dimensions } from 'react-native';
-import qrcode from '../assets/qrcode.png';
 const windowHeight = Dimensions.get('window').height;
-export default function AlertMessage(props) {
+export default function ModalCode(props) {
   const [alertVisible, setAlertVisible] = useState(true);
   const closeModel = () => {
     setAlertVisible(false);

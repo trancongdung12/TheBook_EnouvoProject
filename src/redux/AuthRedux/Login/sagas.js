@@ -1,7 +1,9 @@
 import { call, takeLatest, put } from 'redux-saga/effects';
 import LoginActions, { LoginTypes } from './actions';
 import { userLoginApi } from '../../../api/auth';
+import { userStartApp } from '../../AppRedux/actions';
 import AsyncStorage from '@react-native-community/async-storage';
+import BookTypesActions from '../../HomeRedux/actions';
 export function* userLogin({ data }) {
   try {
     const response = yield call(userLoginApi, data);
@@ -11,10 +13,19 @@ export function* userLogin({ data }) {
     };
     yield AsyncStorage.setItem('token', response.data.token.access_token);
     yield put(LoginActions.userLoginSuccess(newResponse));
+    yield put(BookTypesActions.getBookTypes());
   } catch (error) {
     console.log(error);
     yield put(LoginActions.userLoginFailure(error));
   }
 }
-const userLoginSagas = () => [takeLatest(LoginTypes.USER_LOGIN, userLogin)];
+export function* userLogout() {
+  console.log('run ');
+  yield AsyncStorage.clear();
+  yield put(userStartApp());
+}
+const userLoginSagas = () => [
+  takeLatest(LoginTypes.USER_LOGIN, userLogin),
+  takeLatest(LoginTypes.USER_LOGOUT, userLogout),
+];
 export default userLoginSagas();

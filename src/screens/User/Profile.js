@@ -16,10 +16,11 @@ import ItemBoook from '../../components/itemBoook';
 import ModalCode from '../../components/ModalCode';
 import { useDispatch, useSelector } from 'react-redux';
 import userActions from '../../redux/UserRedux/actions';
+import { pushScreen } from '../../navigation/pushScreen';
 
 const windowWidth = Dimensions.get('window').width;
 
-const Profile = () => {
+const Profile = (props) => {
   const [modal, setModal] = useState(false);
   const closeModal = () => {
     setModal(false);
@@ -27,16 +28,8 @@ const Profile = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userActions.userInfo());
-    console.log('run effect');
   }, []);
-  // const oncallProfile = () => {
-  //   dispatch(userActions.userInfo());
-  // };
   const user = useSelector((state) => state.user.data);
-
-  console.log('====================================');
-  console.log(user);
-  console.log('====================================');
   return (
     <ScrollView style={[styles.container, modal && { opacity: 0.3 }]}>
       {modal && (
@@ -50,7 +43,9 @@ const Profile = () => {
         <TouchableOpacity>
           <Icon name="ic-photo" size={20} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => pushScreen(props.componentId, 'Setting', '', 'Cài đặt thông tin', true)}
+        >
           <Icon name="ic-setting" size={20} color="white" />
         </TouchableOpacity>
       </View>
