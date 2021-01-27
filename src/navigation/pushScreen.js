@@ -44,127 +44,6 @@ export const loginScreen = () => {
 export const homeScreen = () => {
   Promise.all([
     Icons.getImageSource('ic-home', 30),
-    Icons.getImageSource('ic-menu', 25),
-    Icons.getImageSource('ic-search', 25),
-  ]).then(([listBook, menu, search]) => {
-    Navigation.setRoot({
-      root: {
-        stack: {
-          children: [
-            {
-              component: {
-                name: 'Home',
-                options: {
-                  topBar: {
-                    visible: true,
-                    leftButtons: [
-                      {
-                        id: 'sideMenu',
-                        icon: menu,
-                        fontSize: 10,
-                      },
-                    ],
-                    rightButtons: [
-                      {
-                        id: 'S',
-                        icon: search,
-                        fontSize: 10,
-                      },
-                    ],
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-    });
-  });
-  bottomTabs();
-};
-
-export const profileScreen = () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Profile',
-            },
-          },
-        ],
-      },
-    },
-  });
-  bottomTabs();
-};
-
-export const introScreen = () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Intro',
-              options: {
-                topBar: {
-                  visible: false,
-                },
-              },
-            },
-          },
-        ],
-      },
-    },
-  });
-};
-
-export const detailScreen = () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Detail',
-              options: {
-                topBar: {
-                  visible: false,
-                },
-              },
-            },
-          },
-        ],
-      },
-    },
-  });
-};
-
-// SettingsScreen.options = {
-//   topBar: {
-//     title: {
-//       text: 'Settings',
-//     },
-//   },
-//   bottomTab: {
-//     text: 'Settings',
-//   },
-// };
-// Home.options = {
-//   topBar: {
-//     title: {
-//       text: 'home',
-//     },
-//   },
-//   bottomTab: {
-//     text: 'home',
-//   },
-// };
-export const bottomTabs = () => {
-  Promise.all([
-    Icons.getImageSource('ic-home', 30),
     Icons.getImageSource('ic-order', 30),
     Icons.getImageSource('ic-notification-1', 30),
     Icons.getImageSource('ic-user', 30),
@@ -233,12 +112,8 @@ export const bottomTabs = () => {
                 children: [
                   {
                     component: {
-                      name: 'Profile',
+                      name: 'Login',
                       options: {
-                        topBar: {
-                          height: 0,
-                          visible: false,
-                        },
                         bottomTab: {
                           icon: user,
                           fontSize: 30,
@@ -255,13 +130,8 @@ export const bottomTabs = () => {
                 children: [
                   {
                     component: {
-                      name: 'Notification',
+                      name: 'Login',
                       options: {
-                        topBar: {
-                          title: {
-                            text: 'Thông báo',
-                          },
-                        },
                         bottomTab: {
                           icon: notifications,
                         },
@@ -292,5 +162,46 @@ export const bottomTabs = () => {
       },
     });
   });
-  // });
+};
+
+export const introScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Intro',
+              options: {
+                topBar: {
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+};
+
+export const detailScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Detail',
+              options: {
+                topBar: {
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
 };

@@ -5,6 +5,7 @@ import ItemBoook from '../../components/itemBoook';
 import ListBook from '../../components/ListBook';
 import { useDispatch, useSelector } from 'react-redux';
 import BookTypes from '../../redux/HomeRedux/actions';
+import { Navigation } from 'react-native-navigation';
 // const data = {
 //   readMore: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
 // };
@@ -13,10 +14,16 @@ const Home = (props) => {
   const dispatch = useDispatch();
   // const [data, setData] = useState(0);
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
-  // useEffect(() => {
-  //   console.log(data);
-  //   setData(data);
-  // }, [datas]);
+  Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+    Navigation.mergeOptions('sideBar', {
+      topBar: {
+        visible: true,
+      },
+      bottomTabs: {
+        visible: true,
+      },
+    });
+  });
   return (
     <ScrollView style={styles.container}>
       <View style={styles.layoutItem}>

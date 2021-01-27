@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from '../redux/store';
 // import Screen
 import Home from '../screens/Home/index';
+import SideBar from './sideBar';
 import Login from '../screens/Auth/Login';
 import Intro from '../screens/Intro/index';
 import Detail from '../screens/Detail/index';
@@ -58,5 +59,10 @@ export function registerScreens() {
     'Profile',
     () => ReduxProvider(Profile),
     () => Profile,
+  );
+  Navigation.registerComponent(
+    'SideBar',
+    () => ReduxProvider(SideBar),
+    () => SideBar,
   );
 }
