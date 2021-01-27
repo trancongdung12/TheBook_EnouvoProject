@@ -3,22 +3,27 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { introScreen } from '../../navigation/pushScreen';
 import ItemBoook from '../../components/itemBoook';
 import ListBook from '../../components/ListBook';
-const data = {
-  readMore: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
-};
+import { useDispatch, useSelector } from 'react-redux';
+import BookTypes from '../../redux/HomeRedux/actions';
+// const data = {
+//   readMore: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
+// };
 
 const Home = (props) => {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.bookTypes.responseDataType);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.layoutItem}>
         <ListBook />
         <ScrollView horizontal={true}>
-          {data.readMore.map((item, index) => {
-            return <ItemBoook />;
+          {data.data.map((item, index) => {
+            return <ItemBoook key={index} data={item} />;
           })}
         </ScrollView>
+        <Text />
       </View>
-      <View style={styles.layoutItem}>
+      {/* <View style={styles.layoutItem}>
         <ListBook />
         <ScrollView horizontal={true}>
           {data.readMore.map((item, index) => {
@@ -34,6 +39,7 @@ const Home = (props) => {
           })}
         </ScrollView>
       </View>
+     */}
     </ScrollView>
   );
 };
