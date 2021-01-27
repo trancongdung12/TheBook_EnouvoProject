@@ -84,6 +84,23 @@ export const homeScreen = () => {
   bottomTabs();
 };
 
+export const profileScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Profile',
+            },
+          },
+        ],
+      },
+    },
+  });
+  bottomTabs();
+};
+
 export const introScreen = () => {
   Navigation.setRoot({
     root: {
@@ -217,8 +234,12 @@ export const bottomTabs = () => {
                 children: [
                   {
                     component: {
-                      name: 'Login',
+                      name: 'Profile',
                       options: {
+                        topBar: {
+                          height: 0,
+                          visible: false,
+                        },
                         bottomTab: {
                           icon: user,
                           fontSize: 30,
