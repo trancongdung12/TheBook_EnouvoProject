@@ -6,8 +6,8 @@ export function* userSignUpApi({ data }) {
   try {
     const response = yield call(userRegisterApi, data);
     const newResponse = {
-      data: response.data.Data,
-      token: response.data.token.access_token,
+      data: response.data.data.user,
+      token: response.data.data.token.access_token,
     };
     yield put(SignUpActions.userSignUpSuccess(newResponse));
   } catch (error) {
