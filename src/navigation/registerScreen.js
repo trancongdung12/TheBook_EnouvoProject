@@ -11,6 +11,7 @@ import Cart from '../screens/Cart';
 import Register from '../screens/Auth/Register';
 import Notification from '../screens/Notification/index';
 import Profile from '../screens/User/Profile';
+import Orders from '../screens/Orders/index';
 function ReduxProvider(Component) {
   return (props) => (
     <Provider store={store}>
@@ -58,5 +59,10 @@ export function registerScreens() {
     'Profile',
     () => ReduxProvider(Profile),
     () => Profile,
+  );
+  Navigation.registerComponent(
+    'Orders',
+    () => ReduxProvider(Orders),
+    () => Orders,
   );
 }

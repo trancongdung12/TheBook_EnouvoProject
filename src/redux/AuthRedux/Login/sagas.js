@@ -2,6 +2,7 @@ import { call, takeLatest, put } from 'redux-saga/effects';
 import LoginActions, { LoginTypes } from './actions';
 import BookTypesActions from '../../HomeRedux/actions';
 import { userLoginApi } from '../../../api/auth';
+import NotificationActions from '../../NotificationRedux/actions';
 export function* userLogin({ data }) {
   try {
     const response = yield call(userLoginApi, data);
@@ -10,6 +11,7 @@ export function* userLogin({ data }) {
       token: response.data.token.access_token,
     };
     yield put(LoginActions.userLoginSuccess(newResponse));
+    yield put(NotificationActions.userGetNotification());
     yield put(BookTypesActions.getBookTypes());
   } catch (error) {
     console.log(error);

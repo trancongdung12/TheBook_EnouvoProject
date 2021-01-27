@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import NotificationItem from '../../components/NotificationItem';
-
 const { width } = Dimensions.get('window');
 const Notification = () => {
   return (
