@@ -1,20 +1,40 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import Icons from 'react-native-vector-icons/thebook-appicon';
 import { pushScreen } from '../../navigation/pushScreen';
+import { useDispatch } from 'react-redux';
+import LoginActions from '../../redux/AuthRedux/Login/actions';
+// import components
 import Colors from '../../themes/Colors';
 import Input from '../../components/TextInput';
 import ButtonDefault from '../../components/ButtonDefault';
 const { width } = Dimensions.get('window');
 const Login = (props) => {
-  const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
   const onRegister = () => {
     pushScreen(props.componentId, 'Register', '', '', false);
   };
   const onLogin = () => {
-    console.log(email);
-    console.log(password);
+    if (userName === '' || password === '') {
+      Alert('Bạn phải nhập đầy đủ thông tin !');
+    } else {
+      const data = {
+        grant_type: 'password',
+        username: userName,
+        password: password,
+      };
+      dispatch(LoginActions.userLogin(data));
+    }
   };
   return (
     <ScrollView>
@@ -27,7 +47,7 @@ const Login = (props) => {
           <Input
             title="Tài Khoản"
             name="Nhập Tài Khoản"
-            txtChange={(text) => setEmail(text)}
+            txtChange={(text) => setUserName(text)}
             typeInput="emailAddress"
             secureTextEntry={false}
           />
@@ -41,7 +61,7 @@ const Login = (props) => {
         </View>
         <View style={styles.bottomLogin}>
           <ButtonDefault checkButton={true} title="Đăng nhập" onSubmit={onLogin} />
-          <ButtonDefault checkButton={false} title="Đăng kí"  onSubmit={onRegister} />
+          <ButtonDefault checkButton={false} title="Đăng kí" onSubmit={onRegister} />
         </View>
         <TouchableOpacity style={styles.btnForgot}>
           <Text style={styles.txtForgot}>Quên mật khẩu</Text>
