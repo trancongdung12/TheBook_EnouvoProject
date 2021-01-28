@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import book from '../../assets/book.jpg';
 import colors from '../../themes/Colors';
@@ -17,26 +18,44 @@ import AlertMessage from '../../components/AlertMessage';
 import { useSelector } from 'react-redux';
 import Star from '../../components/ItemStar';
 import { Navigation } from 'react-native-navigation';
-import pushScreen, { homeScreen } from '../../navigation/pushScreen';
-const Detail = (props) => {
+import { homeScreen } from '../../navigation/pushScreen';
+import { useDispatch } from 'react-redux';
+import CartActions from '../../redux/CartRedux/actions';
+const Detail = () => {
+  // state
   const [isMore, setIsMore] = useState(false);
   const [model, setModal] = useState(false);
-  const data = useSelector((state) => state.detail.responseBookDetail);
-  console.log('+++++++++++ Details1++++++++');
-  console.log(data);
-  console.log(data.categories[0].name);
 
-  // const [categories, setCategories] = useState([data.categories]);
+  // get data from store
+  const data = useSelector((state) => state.detail.responseBookDetail);
+  const user = useSelector((state) => state.user);
+  const carts = useSelector((state) => state.carts);
+  const dispatch = useDispatch();
+  // show Alert
   const closeModal = () => {
     setModal(false);
   };
-
+  // add to cart function
+  const onAddToCart = () => {
+    if (data.availability === 0) {
+      setModal(true);
+    } else {
+      const dataOrder = {
+        bookId: data.id,
+        quantity: 1,
+        userId: user.data.id,
+      };
+      dispatch(CartActions.userAddCart(dataOrder));
+    }
+  };
+  // push back home screeen
   Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
     if (buttonId === 'back') {
       homeScreen();
     }
   });
-
+  // Check loading of add to cart
+  // const checkLoadAddCart = carts.loadingAddCart;
   return (
     <ScrollView style={[styles.container, model && { opacity: 0.3 }]}>
       {model && (
@@ -45,6 +64,14 @@ const Detail = (props) => {
           title="Sách này hiện đã được mượn hết Bạn có muốn nhận thông báo ngay khi có lại"
           textFirstBtn="Nhận thông báo"
           textSecondBtn="Không, cảm ơn"
+          closeModalMain={closeModal}
+        />
+      )}
+      {carts.addCartError && (
+        <AlertMessage
+          isTwoBtn={false}
+          title={carts.addCartError.data.message}
+          textFirstBtn="Nhận thông báo"
           closeModalMain={closeModal}
         />
       )}
@@ -120,7 +147,8 @@ const Detail = (props) => {
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.btnAddToCart} onPress={() => setModal(true)}>
+      {/* {checkLoadAddCart && <ActivityIndicator size="small" color="#0000ff" />} */}
+      <TouchableOpacity style={styles.btnAddToCart} onPress={() => onAddToCart()}>
         <Text style={styles.textAddToCart}>Thêm vào giỏ</Text>
       </TouchableOpacity>
     </ScrollView>

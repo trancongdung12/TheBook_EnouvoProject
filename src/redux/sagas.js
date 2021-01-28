@@ -8,6 +8,7 @@ import userSagas from './UserRedux/sagas';
 import bookTypes from './HomeRedux/sagas';
 import orderSagas from './OrderRedux/sagas';
 import detailSagas from './DetailRedux/sagas';
+import cartSagas from './CartRedux/sagas';
 export default function* root() {
   yield all([
     ...appSaga,
@@ -18,5 +19,6 @@ export default function* root() {
     ...bookTypes,
     ...orderSagas,
     ...detailSagas,
+    ...cartSagas,
   ]);
 }
