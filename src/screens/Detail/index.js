@@ -14,11 +14,17 @@ import colors from '../../themes/Colors';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import ItemBoook from '../../components/itemBoook';
 import AlertMessage from '../../components/AlertMessage';
-const Detail = () => {
+import { useSelector } from 'react-redux';
+import Star from '../../components/ItemStar';
+const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
   const [model, setModal] = useState(false);
-  const description =
-    'Kimi no Na wa là tác phẩm điện ảnh mới của đạo diễn Makoto Shinkai (đạo diễn 5cm/s, The Garden of Words, Voices of a Distant Star). Mitsuha - cô nữ sinh sống tại một vùng quê Nhật Bản, chán ngán cuộc sống hiện tại và luôn mong';
+  const data = useSelector((state) => state.detail.responseBookDetail);
+  console.log('+++++++++++ Details1++++++++');
+  console.log(data);
+  console.log(data.categories[0].name);
+
+  // const [categories, setCategories] = useState([data.categories]);
   const closeModal = () => {
     setModal(false);
   };
@@ -34,36 +40,35 @@ const Detail = () => {
         />
       )}
       <View style={styles.layoutDetail}>
-        <Image style={styles.bookImg} source={book} />
-        <Text style={styles.bookTitle}>Để con được ốm thêm vài lần</Text>
-        <Text style={styles.bookAuthor}>Nguyễn Trí Đoàn</Text>
+        <Image
+          style={styles.bookImg}
+          source={{
+            uri: data.medias[0],
+          }}
+        />
+        <Text style={styles.bookTitle}>{data.title}</Text>
+        <Text style={styles.bookAuthor}>{data.authors[0].name}</Text>
         <View style={styles.layoutStarPrice}>
           <View style={styles.layoutStar}>
-            <Icon name="star" size={10} color={colors.primary} />
-            <Icon name="star" size={10} color={colors.primary} />
-            <Icon name="star" size={10} color={colors.primary} />
-            <Icon name="star" size={10} color={colors.primary} />
-            <Icon name="ic-star-pre" size={10} color={colors.txtLevel2} />
+            <Star star={data.overallStarRating} />
           </View>
           <View style={styles.layoutPrice}>
             <Icon name="ic-price" size={10} color={colors.primary} />
-            <Text style={styles.textPrice}>1.278</Text>
+            <Text style={styles.textPrice}>{data.price}</Text>
           </View>
         </View>
         <View style={styles.layoutTag}>
-          <View style={styles.itemTag}>
-            <Text style={styles.textTag}>tình cảm</Text>
-          </View>
-          <View style={styles.itemTag}>
-            <Text style={styles.textTag}>đời sống</Text>
-          </View>
-          <View style={styles.itemTag}>
-            <Text style={styles.textTag}>học đường</Text>
-          </View>
+          {data.categories.map((item) => {
+            return (
+              <View style={styles.itemTag} key={toString()}>
+                <Text style={styles.textTag}>{item.name}</Text>
+              </View>
+            );
+          })}
         </View>
         <View style={styles.layoutDescription}>
           <Text numberOfLines={isMore ? 10 : 3} style={styles.textDescription}>
-            {description}
+            {data.content}
           </Text>
           <TouchableWithoutFeedback onPress={() => setIsMore({ isMore: true })}>
             <Text style={styles.textViewMore}> {isMore ? '' : 'xem hết'}</Text>
@@ -82,11 +87,7 @@ const Detail = () => {
                 <View style={styles.containStarComment}>
                   <Text style={styles.nameComment}>Kim Dung</Text>
                   <View style={styles.layoutStarComment}>
-                    <Icon name="star" size={10} color={colors.primary} />
-                    <Icon name="star" size={10} color={colors.primary} />
-                    <Icon name="star" size={10} color={colors.primary} />
-                    <Icon name="star" size={10} color={colors.primary} />
-                    <Icon name="ic-star-pre" size={10} color={colors.txtLevel2} />
+                    <Star star={data.overallStarRating} />
                   </View>
                 </View>
               </View>

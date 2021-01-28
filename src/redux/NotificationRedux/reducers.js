@@ -9,13 +9,13 @@ export const INITIAL_STATE = Immutable({
 });
 
 export const userGetNotification = (state, { response }) =>
-  state.merge({ loadingNotification: true, typeLogin: 'User notification' });
+  state.merge({ loadingNotification: true, typeNotification: 'User notification' });
 
 export const userGetNotificationSuccess = (state, { response }) =>
   state.merge({
     loadingNotification: false,
     responseNotification: response,
-    typeLogin: 'User notification success',
+    typeNotification: 'User notification success',
   });
 const reducer = makeReducerCreator(INITIAL_STATE, {
   [NotificationTypes.USER_GET_NOTIFICATION]: userGetNotification,

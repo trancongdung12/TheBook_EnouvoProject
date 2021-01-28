@@ -39,14 +39,13 @@ const OrderItem = (props) => {
 
 const styles = StyleSheet.create({
   itemOrders: {
-    margin: (7 * width) / 100,
+    marginLeft: (7 * width) / 100,
+    marginRight: (7 * width) / 100,
+    marginTop: 20,
     height: (35 * width) / 100,
     width: width - ((7 * width) / 100) * 2,
-    shadowOffset: {
-      height: 2,
-      width: 0,
-    },
-    shadowOpacity: 0.2,
+    borderBottomWidth: 1,
+    borderColor: '#ffffff',
   },
   contentItemOrders: {
     flexDirection: 'row',
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     height: (35 * width) / 100 - ((4 * width) / 100) * 2,
   },
   leftItemOrder: {
-    width: (30 * width) / 100,
+    width: (20 * width) / 100,
     borderRightWidth: 1,
     borderColor: '#e3e3e3',
     justifyContent: 'center',

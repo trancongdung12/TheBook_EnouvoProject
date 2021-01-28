@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: (2.5 * width) / 100,
     color: Colors.txtLevel3,
-    marginLeft: (25 * width) / 100,
+    marginLeft: (23 * width) / 100,
   },
   detailNotification: {
     width: width - (2 * ((10 * width) / 100) + ((10 * width) / 100 + (5 * width) / 100)),

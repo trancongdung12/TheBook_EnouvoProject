@@ -8,6 +8,7 @@ import BookTypes from '../../redux/HomeRedux/actions';
 // const data = {
 //   readMore: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
 // };
+import { pushScreen } from '../../navigation/pushScreen';
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -30,11 +31,12 @@ const Home = (props) => {
                 title={item.title}
                 authors={item.authors[0].name}
                 price={item.price}
+                idBook={item.id}
+                idComponent={props.componentId}
               />
             );
           })}
         </ScrollView>
-        <Text />
       </View>
       {/* <View style={styles.layoutItem}>
         <ListBook />
