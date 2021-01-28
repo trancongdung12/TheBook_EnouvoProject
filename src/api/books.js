@@ -6,3 +6,6 @@ export async function getApiBookDetail(data) {
 export async function addApiReviewBook(data) {
   return http.post('api/reviews', data);
 }
+export async function getSuggestionApi() {
+  return http.get('api/search/suggestion');
+}

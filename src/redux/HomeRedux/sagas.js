@@ -1,6 +1,7 @@
 import { call, takeLatest, put } from 'redux-saga/effects';
 import BookTypeActions, { BookTypes } from './actions';
 import { bookTypesApis } from '../../api/auth';
+import { getSuggestionApi } from '../../api/books';
 import { homeScreen } from '../../navigation/pushScreen';
 export function* bookTypesApi() {
   try {
@@ -8,7 +9,6 @@ export function* bookTypesApi() {
     const newResponse = {
       data: response.data.books,
     };
-    console.log(newResponse);
     yield put(BookTypeActions.responseSuccess(newResponse));
     homeScreen();
   } catch (error) {
@@ -16,5 +16,17 @@ export function* bookTypesApi() {
     yield put(BookTypeActions.responseFailure(error));
   }
 }
-const userBookTypesSaga = () => [takeLatest(BookTypes.BOOK_TYPES, bookTypesApi)];
+export function* getSearchSuggestion() {
+  try {
+    const response = yield call(getSuggestionApi);
+    console.log('+++++++++++++GET SUGGESTION++++++++++++++++++++++++');
+    yield put(BookTypeActions.getSuggestionSuccess(response.data.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+const userBookTypesSaga = () => [
+  takeLatest(BookTypes.BOOK_TYPES, bookTypesApi),
+  takeLatest(BookTypes.GET_SUGGESTION, getSearchSuggestion),
+];
 export default userBookTypesSaga();
