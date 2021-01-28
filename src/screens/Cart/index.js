@@ -5,6 +5,7 @@ import colors from '../../themes/Colors';
 import { Dimensions } from 'react-native';
 import Book from '../../components/ItemBookHorizontal';
 import AlertMessage from '../../components/AlertMessage';
+import TitleHeader from '../../components/TitleHeader';
 const windowWidth = Dimensions.get('window').width;
 
 const Cart = () => {
@@ -19,6 +20,13 @@ const Cart = () => {
   }
   return (
     <View style={styles.container}>
+      <TitleHeader
+        title={'Giỏ hàng'}
+        leftIcon={'ic-back'}
+        rightIcon={'ic-trash'}
+        type={'delete'}
+        // onBackLayout={onBackLayout}
+      />
       {model && (
         <AlertMessage
           isTwoBtn={false}

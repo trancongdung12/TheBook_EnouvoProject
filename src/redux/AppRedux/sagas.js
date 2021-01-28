@@ -17,7 +17,6 @@ export function* loadingAppSagas() {
 
     http.setAuthorizationHeader(token);
     if (token) {
-      introScreen();
       yield put(BookTypesActions.getBookTypes());
       yield put(OrderTypesAction.userGetOrders());
     } else {

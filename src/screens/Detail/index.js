@@ -17,7 +17,7 @@ import AlertMessage from '../../components/AlertMessage';
 import { useSelector } from 'react-redux';
 import Star from '../../components/ItemStar';
 import { Navigation } from 'react-native-navigation';
-import pushScreen, { homeScreen } from '../../navigation/pushScreen';
+import { homeScreen, pushScreen } from '../../navigation/pushScreen';
 import ListBook from '../../components/ListBook';
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
@@ -29,7 +29,7 @@ const Detail = (props) => {
   console.log(data.categories[0].name);
   const check = () => {
     console.log(datas);
-    console.log("123");
+    console.log('123');
   };
   // const [categories, setCategories] = useState([data.categories]);
   const closeModal = () => {
@@ -39,6 +39,8 @@ const Detail = (props) => {
   Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
     if (buttonId === 'back') {
       homeScreen();
+    } else if (buttonId === 'cart') {
+      pushScreen(props.componentId, 'Cart', '', '', false);
     }
   });
 

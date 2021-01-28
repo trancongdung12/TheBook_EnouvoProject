@@ -7,6 +7,7 @@ import ItemBookHorizontal from '../../components/ItemBookHorizontal';
 import { Navigation } from 'react-native-navigation';
 import ItemBook from '../../components/ItemBook';
 import { useDispatch, useSelector } from 'react-redux';
+import TitleHeader from '../../components/TitleHeader';
 const windowWidth = Dimensions.get('window').width;
 
 const Filter = (props) => {
@@ -20,13 +21,12 @@ const Filter = (props) => {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.topHeader}>
-        <TouchableOpacity onPress={onBackLayout}>
-          <Icon style={styles.icTop} name="ic-back" />
-        </TouchableOpacity>
-        <Text style={styles.txtTopHeader}>Tháng Tư và tuổi trẻ</Text>
-        <Icon style={styles.icTop} name="ic-search" />
-      </View>
+      <TitleHeader
+        title={'Tháng Tư và tuổi trẻ'}
+        leftIcon={'ic-back'}
+        rightIcon={'ic-search'}
+        onBackLayout={onBackLayout}
+      />
       <View style={styles.layoutHeader}>
         <View style={styles.itemType}>
           <Text style={styles.textType}>Thể loại</Text>
@@ -75,22 +75,6 @@ export default Filter;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  topHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 30,
-    marginLeft: 20,
-    marginBottom: 15,
-    marginRight: 20,
-  },
-  icTop: {
-    fontSize: 20,
-    color: '#5f5f5f',
-  },
-  txtTopHeader: {
-    fontSize: 15,
-    color: '#4a4a4a',
   },
   layoutHeader: {
     flexDirection: 'row',

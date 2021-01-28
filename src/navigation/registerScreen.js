@@ -9,7 +9,7 @@ import SideBar from './sideBar';
 import Login from '../screens/Auth/Login';
 import Intro from '../screens/Intro/index';
 import Detail from '../screens/Detail/index';
-import Cart from '../screens/Cart';
+import Cart from '../screens/Cart/index';
 import Register from '../screens/Auth/Register';
 import Notification from '../screens/Notification/index';
 import Profile from '../screens/User/Profile';
