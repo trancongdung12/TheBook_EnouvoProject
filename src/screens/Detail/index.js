@@ -18,15 +18,13 @@ import { useSelector } from 'react-redux';
 import Star from '../../components/ItemStar';
 import { Navigation } from 'react-native-navigation';
 import pushScreen, { homeScreen } from '../../navigation/pushScreen';
+import AddComment from '../../components/AddComment';
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
   const [model, setModal] = useState(false);
+  const [modelReview, setModelReview] = useState(false);
   const data = useSelector((state) => state.detail.responseBookDetail);
-  console.log('+++++++++++ Details1++++++++');
-  console.log(data);
-  console.log(data.categories[0].name);
 
-  // const [categories, setCategories] = useState([data.categories]);
   const closeModal = () => {
     setModal(false);
   };
@@ -38,7 +36,9 @@ const Detail = (props) => {
   });
 
   return (
-    <ScrollView style={[styles.container, model && { opacity: 0.3 }]}>
+    <ScrollView
+      style={[styles.container, model && { opacity: 0.3 }, modelReview && { opacity: 0.3 }]}
+    >
       {model && (
         <AlertMessage
           isTwoBtn={true}
@@ -48,6 +48,7 @@ const Detail = (props) => {
           closeModalMain={closeModal}
         />
       )}
+      {modelReview && <AddComment closeReview={() => setModelReview(false)} />}
       <View style={styles.layoutDetail}>
         <Image
           style={styles.bookImg}
@@ -86,7 +87,7 @@ const Detail = (props) => {
         <ItemBoook />
         <View style={styles.layoutComment}>
           <Text style={styles.titleComment}>Nhận xét</Text>
-          <TouchableOpacity style={styles.btnComment}>
+          <TouchableOpacity style={styles.btnComment} onPress={() => setModelReview(true)}>
             <Text style={styles.textButtonComment}>Viết nhận xét cho cuốn sách này</Text>
           </TouchableOpacity>
           <View style={styles.layoutItemComment}>

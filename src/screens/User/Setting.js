@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import colors from '../../themes/Colors';
 import { useDispatch } from 'react-redux';
-import LoginTypes from '../../redux/AuthRedux/Login/actions';
+import LoginTypes from '../../redux/AuthRedux/actions';
 
 const windowWidth = Dimensions.get('window').width;
 const Item = (props) => {

@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imgBackground: {
-    height: 320,
+    height: 350,
     width: windowWidth,
     paddingHorizontal: 30,
   },
