@@ -12,7 +12,7 @@ import avatar from '../../assets/image/avatar.jpg';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../../themes/Colors';
-import ItemBoook from '../../components/itemBoook';
+import ItemBook from '../../components/ItemBook';
 import ModalCode from '../../components/ModalCode';
 import { useDispatch, useSelector } from 'react-redux';
 import userActions from '../../redux/UserRedux/actions';
@@ -22,6 +22,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const Profile = (props) => {
   const [modal, setModal] = useState(false);
+  const datas = useSelector((state) => state.bookTypes.responseDataType.data);
   const closeModal = () => {
     setModal(false);
   };
@@ -85,9 +86,21 @@ const Profile = (props) => {
         <Icon name="ic-filter-change" size={20} color={colors.btnLevel2} />
       </View>
       <View style={styles.layoutBook}>
-        <ItemBoook />
-        <ItemBoook />
-        <ItemBoook />
+        <ScrollView horizontal={true}>
+          {datas.map((item, index) => {
+            return (
+              <ItemBook
+                key={index}
+                image={item.medias[0]}
+                title={item.title}
+                authors={item.authors[0].name}
+                price={item.price}
+                idBook={item.id}
+                idComponent={props.componentId}
+              />
+            );
+          })}
+        </ScrollView>
       </View>
     </ScrollView>
   );

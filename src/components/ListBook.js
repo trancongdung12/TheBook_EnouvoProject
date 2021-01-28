@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import colors from '../themes/Colors';
 
-const ListBook = () => {
+const ListBook = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.layoutRelated}>
         <Text style={styles.titleRelated}>Sách tương tự</Text>
-        <Text style={styles.textViewMore}>xem hết</Text>
+        <TouchableOpacity onPress={() => props.onFilter()}>
+          <Text style={styles.textViewMore}>xem hết</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

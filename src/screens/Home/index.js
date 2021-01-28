@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { introScreen, pushScreen } from '../../navigation/pushScreen';
-import ItemBoook from '../../components/itemBoook';
+import ItemBook from '../../components/ItemBook';
 import ListBook from '../../components/ListBook';
 import { useDispatch, useSelector } from 'react-redux';
 import BookTypes from '../../redux/HomeRedux/actions';
@@ -23,14 +23,19 @@ const Home = (props) => {
       pushScreen(props.componentId, 'Search', '', '', false);
     }
   });
+
+  const onFilter = () => {
+    pushScreen(props.componentId, 'Filter', '', '', false);
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.layoutItem}>
-        <ListBook />
+        <ListBook onFilter={onFilter} />
         <ScrollView horizontal={true}>
           {datas.map((item, index) => {
             return (
-              <ItemBoook
+              <ItemBook
                 key={index}
                 image={item.medias[0]}
                 title={item.title}
@@ -43,23 +48,42 @@ const Home = (props) => {
           })}
         </ScrollView>
       </View>
-      {/* <View style={styles.layoutItem}>
-        <ListBook />
+      <View style={styles.layoutItem}>
+        <ListBook onFilter={onFilter} />
         <ScrollView horizontal={true}>
-          {data.readMore.map((item, index) => {
-            return <ItemBoook />;
+          {datas.map((item, index) => {
+            return (
+              <ItemBook
+                key={index}
+                image={item.medias[0]}
+                title={item.title}
+                authors={item.authors[0].name}
+                price={item.price}
+                idBook={item.id}
+                idComponent={props.componentId}
+              />
+            );
           })}
         </ScrollView>
       </View>
       <View style={styles.layoutItem}>
-        <ListBook />
+        <ListBook onFilter={onFilter} />
         <ScrollView horizontal={true}>
-          {data.readMore.map((item, index) => {
-            return <ItemBoook />;
+          {datas.map((item, index) => {
+            return (
+              <ItemBook
+                key={index}
+                image={item.medias[0]}
+                title={item.title}
+                authors={item.authors[0].name}
+                price={item.price}
+                idBook={item.id}
+                idComponent={props.componentId}
+              />
+            );
           })}
         </ScrollView>
       </View>
-     */}
     </ScrollView>
   );
 };

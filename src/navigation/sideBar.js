@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: (width / 7) * 5 - 40,
     color: '#5f5f5f',
-    marginTop: -35,
+    marginTop: -30,
   },
   layoutItem: {
     flexDirection: 'row',

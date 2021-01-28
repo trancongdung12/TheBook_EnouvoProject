@@ -1,13 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/thebook-appicon';
+import { Navigation } from 'react-native-navigation';
 const { width } = Dimensions.get('window');
 const { height } = Dimensions.get('window');
 
-const Search = () => {
+const Search = (props) => {
+  const backClose = () => {
+    Navigation.pop(props.componentId);
+  };
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btnClose}>
+      <TouchableOpacity style={styles.btnClose} onPress={backClose}>
         <Icon name="ic-delete" color="#5f5f5f" />
       </TouchableOpacity>
       <View style={styles.txtInSearch}>
@@ -18,10 +22,10 @@ const Search = () => {
         <Text style={styles.txtTitle}>Các từ khoá thông dụng</Text>
       </View>
       <View style={styles.layoutItem}>
-        <Text>Kiếm hiệp</Text>
-        <Text>Chiến thuật</Text>
-        <Text>Tây Du</Text>
-        <Text>Quora và cộng đồng</Text>
+        <Text style={styles.txtItem}>Kiếm hiệp</Text>
+        <Text style={styles.txtItem}>Chiến thuật</Text>
+        <Text style={styles.txtItem}>Tây Du</Text>
+        <Text style={styles.txtItem}>Quora và cộng đồng</Text>
       </View>
     </View>
   );
@@ -55,5 +59,14 @@ const styles = StyleSheet.create({
     color: '#ababab',
     fontSize: 12,
     fontWeight: '300',
+  },
+  layoutItem: {
+    marginTop: 15,
+  },
+  txtItem: {
+    color: '#4a4a4a',
+    fontSize: 15,
+    fontWeight: '300',
+    marginBottom: 8,
   },
 });

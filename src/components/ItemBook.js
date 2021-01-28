@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/thebook-appicon';
 import { useDispatch } from 'react-redux';
 import DetailActions from '../redux/DetailRedux/actions';
 
-const itemBoook = (props) => {
+const ItemBook = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const dispatch = useDispatch();
   const onDetailBook = () => {
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default itemBoook;
+export default ItemBook;

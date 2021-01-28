@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from '../redux/store';
 // import Screen
 import Home from '../screens/Home/index';
+import Filter from '../screens/Home/Filter';
 import SideBar from './sideBar';
 import Login from '../screens/Auth/Login';
 import Intro from '../screens/Intro/index';
@@ -88,5 +89,10 @@ export function registerScreens() {
     'Search',
     () => ReduxProvider(Search),
     () => Search,
+  );
+  Navigation.registerComponent(
+    'Filter',
+    () => ReduxProvider(Filter),
+    () => Filter,
   );
 }
