@@ -104,7 +104,7 @@ export const homeScreen = () => {
                     children: [
                       {
                         component: {
-                          name: 'Login',
+                          name: 'Orders',
                           options: {
                             visible: false,
                             bottomTab: {
@@ -123,8 +123,11 @@ export const homeScreen = () => {
                     children: [
                       {
                         component: {
-                          name: 'Login',
+                          name: 'Profile',
                           options: {
+                            topBar: {
+                              visible: false,
+                            },
                             bottomTab: {
                               icon: user,
                               fontSize: 30,
@@ -141,7 +144,7 @@ export const homeScreen = () => {
                     children: [
                       {
                         component: {
-                          name: 'Login',
+                          name: 'Notification',
                           options: {
                             bottomTab: {
                               icon: notifications,
@@ -157,8 +160,11 @@ export const homeScreen = () => {
                     children: [
                       {
                         component: {
-                          name: 'Login',
+                          name: 'Library',
                           options: {
+                            topBar: {
+                              visible: false,
+                            },
                             bottomTab: {
                               icon: library,
                             },
