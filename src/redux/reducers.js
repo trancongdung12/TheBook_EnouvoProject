@@ -7,6 +7,7 @@ import login from './AuthRedux/Login/reducers';
 import notification from './NotificationRedux/reducers';
 import orders from './OrderRedux/reducers';
 import detail from '../redux/DetailRedux/reducers';
+import carts from '../redux/CartRedux/reducers';
 const rootReducer = combineReducers({
   app,
   signUp,
@@ -16,5 +17,6 @@ const rootReducer = combineReducers({
   bookTypes,
   orders,
   detail,
+  carts,
 });
 export default rootReducer;

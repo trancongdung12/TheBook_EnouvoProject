@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 import colors from '../themes/Colors';
+import CartActions from '../redux/CartRedux/actions';
+import { useDispatch } from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 export default function AlertMessage(props) {
   const [alertVisible, setAlertVisible] = useState(true);
+
+  const dispatch = useDispatch();
   const closeModel = () => {
     setAlertVisible(false);
+    props.closeModalMain();
+  };
+  const deleteErrorMessage = () => {
+    setAlertVisible(false);
+    dispatch(CartActions.userEndMessage());
     props.closeModalMain();
   };
   return (
@@ -33,7 +42,10 @@ export default function AlertMessage(props) {
               </View>
             ) : (
               <View style={styles.layoutButtonOne}>
-                <TouchableOpacity style={styles.btnNotification} onPress={() => closeModel()}>
+                <TouchableOpacity
+                  style={styles.btnNotification}
+                  onPress={() => deleteErrorMessage()}
+                >
                   <Text style={styles.textNotification}>{props.textFirstBtn}</Text>
                 </TouchableOpacity>
               </View>
