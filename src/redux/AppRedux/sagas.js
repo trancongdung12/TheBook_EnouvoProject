@@ -5,6 +5,7 @@ import { loginScreen } from '../../navigation/pushScreen';
 import AsyncStorage from '@react-native-community/async-storage';
 import BookTypesActions from '../HomeRedux/actions';
 import OrderTypesAction from '../OrderRedux/actions';
+import BookTypeActions from '../HomeRedux/actions';
 export function* loadingAppSagas() {
   try {
     const storeToken = yield AsyncStorage.getItem('token');
@@ -19,6 +20,7 @@ export function* loadingAppSagas() {
     if (token) {
       yield put(BookTypesActions.getBookTypes());
       yield put(OrderTypesAction.userGetOrders());
+      yield put(BookTypeActions.getSuggestion());
     } else {
       loginScreen();
     }
