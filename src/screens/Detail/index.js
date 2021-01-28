@@ -16,6 +16,8 @@ import ItemBoook from '../../components/itemBoook';
 import AlertMessage from '../../components/AlertMessage';
 import { useSelector } from 'react-redux';
 import Star from '../../components/ItemStar';
+import { Navigation } from 'react-native-navigation';
+import pushScreen, { homeScreen } from '../../navigation/pushScreen';
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
   const [model, setModal] = useState(false);
@@ -28,6 +30,13 @@ const Detail = (props) => {
   const closeModal = () => {
     setModal(false);
   };
+
+  Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+    if (buttonId === 'back') {
+      homeScreen();
+    }
+  });
+
   return (
     <ScrollView style={[styles.container, model && { opacity: 0.3 }]}>
       {model && (

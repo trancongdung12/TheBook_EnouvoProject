@@ -205,22 +205,44 @@ export const introScreen = () => {
 };
 
 export const detailScreen = () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Detail',
-              options: {
-                topBar: {
-                  visible: false,
+  Promise.all([
+    Icons.getImageSource('ic-back', 25),
+    Icons.getImageSource('ic-cart-1', 25),
+    Icons.getImageSource('ic-like-pre', 25),
+  ]).then(([back, like, order]) => {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'Detail',
+                options: {
+                  topBar: {
+                    visible: true,
+                    leftButtons: [
+                      {
+                        id: 'back',
+                        icon: back,
+                        fontSize: 10,
+                        color: '#555',
+                      },
+                    ],
+                    rightButtons: [
+                      {
+                        id: 'heart',
+                        icon: order,
+                        fontSize: 10,
+                        color: '#555',
+                      },
+                    ],
+                  },
                 },
               },
             },
-          },
-        ],
+          ],
+        },
       },
-    },
+    });
   });
 };
