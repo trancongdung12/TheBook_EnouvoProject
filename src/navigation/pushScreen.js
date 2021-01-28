@@ -53,111 +53,123 @@ export const homeScreen = () => {
   ]).then(([listBook, orderHistory, notifications, user, library, menu, search]) => {
     Navigation.setRoot({
       root: {
-        bottomTabs: {
-          children: [
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Home',
-                      options: {
-                        topBar: {
-                          visible: true,
-                          leftButtons: [
-                            {
-                              icon: menu,
-                              fontSize: 10,
+        sideMenu: {
+          left: {
+            component: {
+              id: 'sideBar',
+              name: 'SideBar',
+            },
+          },
+          center: {
+            bottomTabs: {
+              children: [
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Home',
+                          options: {
+                            topBar: {
+                              visible: true,
+                              leftButtons: [
+                                {
+                                  id: 'sideBar',
+                                  icon: menu,
+                                  fontSize: 10,
+                                },
+                              ],
+                              rightButtons: [
+                                {
+                                  id: 'search',
+                                  icon: search,
+                                  fontSize: 10,
+                                },
+                              ],
                             },
-                          ],
-                          rightButtons: [
-                            {
-                              icon: search,
-                              fontSize: 10,
+                            bottomTab: {
+                              icon: listBook,
+                              fontSize: 30,
+                              animate: false,
                             },
-                          ],
-                        },
-                        bottomTab: {
-                          icon: listBook,
-                          fontSize: 30,
-                          animate: false,
+                          },
                         },
                       },
-                    },
+                    ],
                   },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Login',
-                      options: {
-                        visible: false,
-                        bottomTab: {
-                          icon: orderHistory,
-                          fontSize: 30,
-                          animate: false,
+                },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Login',
+                          options: {
+                            visible: false,
+                            bottomTab: {
+                              icon: orderHistory,
+                              fontSize: 30,
+                              animate: false,
+                            },
+                          },
                         },
                       },
-                    },
+                    ],
                   },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Login',
-                      options: {
-                        bottomTab: {
-                          icon: user,
-                          fontSize: 30,
-                          animate: false,
+                },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Login',
+                          options: {
+                            bottomTab: {
+                              icon: user,
+                              fontSize: 30,
+                              animate: false,
+                            },
+                          },
                         },
                       },
-                    },
+                    ],
                   },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Login',
-                      options: {
-                        bottomTab: {
-                          icon: notifications,
+                },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Login',
+                          options: {
+                            bottomTab: {
+                              icon: notifications,
+                            },
+                          },
                         },
                       },
-                    },
+                    ],
                   },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Login',
-                      options: {
-                        bottomTab: {
-                          icon: library,
+                },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Login',
+                          options: {
+                            bottomTab: {
+                              icon: library,
+                            },
+                          },
                         },
                       },
-                    },
+                    ],
                   },
-                ],
-              },
+                },
+              ],
             },
-          ],
+          },
         },
       },
     });

@@ -1,71 +1,88 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/thebook-appicon';
-export default class SideBarItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-      checked: false,
-    };
-  }
-  onclickCheck = async (name) => {r
-    const { checked } = this.state;
-    if (checked) {
-      await this.setState({
-        value: name,
-        checked: false,
-      });
-    } else {
-      await this.setState({
-        value: name,
-        checked: true,
-      });
-    }
+const { width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
-    this.props.onclickCheck(this.state.value);
-  };
-  render() {
-    const { name } = this.props;
-    const { checked } = this.state;
-    return (
-      // <TouchableOpacity
-      //   onPress={() => {
-      //     this.onclickCheck(name);
-      //   }}
-      // >
-      //   <View style={[styles.dropDownChild]}>
-      //     <Text style={styles.text}>{name}</Text>
-      //     <View style={styles.Check}>
-      //       <Icon name="ic-check" solid size={35} color="#fc9619" />
-      //     </View>
-      //   </View>
-      // </TouchableOpacity>
-      <View style={{width:100,height:100}} >
-        <Text>ttttttttt</Text>
+const sideBar = () => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.layoutTop}>
+        <TextInput style={styles.inputSideMenu} placeholder="Tìm thể loại" />
+        <Icon style={styles.iconSearch} name="ic-search" />
       </View>
-    );
-  }
-}
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Kinh tế</Text>
+        <Icon name="ic-more-filter" />
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Chính trị</Text>
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Văn hoá</Text>
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Xã hội</Text>
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Khoa học</Text>
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Thể thao</Text>
+        <Icon name="ic-more-filter" />
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Tự nhiên</Text>
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Truyện tranh</Text>
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Tôn giáo</Text>
+      </View>
+      <View style={styles.layoutItem}>
+        <Text style={styles.txtItem}>Lich sử</Text>
+        <Icon name="ic-more-filter" />
+      </View>
+    </View>
+  );
+};
+
+export default sideBar;
+
 const styles = StyleSheet.create({
-  text: {
-    fontFamily: 'SVN-ProximaNova',
-    fontSize: 16,
-    flex: 1,
+  container: {
+    width: (width / 7) * 5,
+    height: height + 45,
+    backgroundColor: '#fff',
   },
-  dropDownChild: {
-    marginLeft: 30,
-    marginBottom: 10,
+  layoutTop: {
     marginTop: 10,
-    width: 500,
+  },
+  inputSideMenu: {
+    borderBottomWidth: 1,
+    borderColor: '#e9e9e9',
+    padding: 20,
+  },
+  iconSearch: {
+    fontSize: 16,
+    marginLeft: (width / 7) * 5 - 40,
+    color: '#5f5f5f',
+    marginTop: -35,
+  },
+  layoutItem: {
     flexDirection: 'row',
-    backgroundColor: '#5555',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderColor: '#e9e9e9',
+    paddingLeft: 25,
+    paddingTop: 14,
+    paddingBottom: 14,
+    paddingRight: 25,
   },
-  Check: {
-    flex: 1,
-    opacity: 0,
-  },
-  checked: {
-    opacity: 1,
-  },
+  txtItem: {
+    fontSize: 15,
+    fontWeight: '300',
+    color: '#4a4a4a',
+  }
 });

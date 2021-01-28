@@ -12,6 +12,8 @@ import Cart from '../screens/Cart';
 import Register from '../screens/Auth/Register';
 import Notification from '../screens/Notification/index';
 import Profile from '../screens/User/Profile';
+import Setting from '../screens/User/Setting';
+import Search from '../screens/Home/Search';
 function ReduxProvider(Component) {
   return (props) => (
     <Provider store={store}>
@@ -64,5 +66,15 @@ export function registerScreens() {
     'SideBar',
     () => ReduxProvider(SideBar),
     () => SideBar,
+  );
+  Navigation.registerComponent(
+    'Setting',
+    () => ReduxProvider(Setting),
+    () => Setting,
+  );
+  Navigation.registerComponent(
+    'Search',
+    () => ReduxProvider(Search),
+    () => Search,
   );
 }
