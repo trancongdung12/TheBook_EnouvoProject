@@ -45,60 +45,136 @@ export const loginScreen = () => {
 export const homeScreen = () => {
   Promise.all([
     Icons.getImageSource('ic-home', 30),
+    Icons.getImageSource('ic-order', 30),
+    Icons.getImageSource('ic-notification-1', 30),
+    Icons.getImageSource('ic-user', 30),
+    Icons.getImageSource('ic-library', 30),
     Icons.getImageSource('ic-menu', 25),
     Icons.getImageSource('ic-search', 25),
-  ]).then(([listBook, menu, search]) => {
+  ]).then(([listBook, orderHistory, notifications, user, library, menu, search]) => {
     Navigation.setRoot({
       root: {
-        stack: {
-          children: [
-            {
-              component: {
-                name: 'Home',
-                options: {
-                  topBar: {
-                    visible: true,
-                    leftButtons: [
+        sideMenu: {
+          left: {
+            component: {
+              id: 'sideBar',
+              name: 'SideBar',
+            },
+          },
+          center: {
+            bottomTabs: {
+              children: [
+                {
+                  stack: {
+                    children: [
                       {
-                        id: 'sideMenu',
-                        icon: menu,
-                        fontSize: 10,
-                      },
-                    ],
-                    rightButtons: [
-                      {
-                        id: 'S',
-                        icon: search,
-                        fontSize: 10,
+                        component: {
+                          name: 'Home',
+                          options: {
+                            topBar: {
+                              visible: true,
+                              leftButtons: [
+                                {
+                                  id: 'sideBar',
+                                  icon: menu,
+                                  fontSize: 10,
+                                },
+                              ],
+                              rightButtons: [
+                                {
+                                  id: 'search',
+                                  icon: search,
+                                  fontSize: 10,
+                                },
+                              ],
+                            },
+                            bottomTab: {
+                              icon: listBook,
+                              fontSize: 30,
+                              animate: false,
+                            },
+                          },
+                        },
                       },
                     ],
                   },
                 },
-              },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Login',
+                          options: {
+                            visible: false,
+                            bottomTab: {
+                              icon: orderHistory,
+                              fontSize: 30,
+                              animate: false,
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Login',
+                          options: {
+                            bottomTab: {
+                              icon: user,
+                              fontSize: 30,
+                              animate: false,
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Login',
+                          options: {
+                            bottomTab: {
+                              icon: notifications,
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  stack: {
+                    children: [
+                      {
+                        component: {
+                          name: 'Login',
+                          options: {
+                            bottomTab: {
+                              icon: library,
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
             },
-          ],
+          },
         },
       },
     });
   });
-  bottomTabs();
-};
-
-export const profileScreen = () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Profile',
-            },
-          },
-        ],
-      },
-    },
-  });
-  bottomTabs();
 };
 
 export const introScreen = () => {
@@ -141,173 +217,4 @@ export const detailScreen = () => {
       },
     },
   });
-};
-
-// SettingsScreen.options = {
-//   topBar: {
-//     title: {
-//       text: 'Settings',
-//     },
-//   },
-//   bottomTab: {
-//     text: 'Settings',
-//   },
-// };
-// Home.options = {
-//   topBar: {
-//     title: {
-//       text: 'home',
-//     },
-//   },
-//   bottomTab: {
-//     text: 'home',
-//   },
-// };
-export const bottomTabs = () => {
-  Promise.all([
-    Icons.getImageSource('ic-home', 30),
-    Icons.getImageSource('ic-order', 30),
-    Icons.getImageSource('ic-notification-1', 30),
-    Icons.getImageSource('ic-user', 30),
-    Icons.getImageSource('ic-library', 30),
-    Icons.getImageSource('ic-menu', 25),
-    Icons.getImageSource('ic-search', 25),
-    Icons.getImageSource('filter', 25),
-  ]).then(([listBook, orderHistory, notifications, user, library, menu, search, filter]) => {
-    Navigation.setRoot({
-      root: {
-        bottomTabs: {
-          children: [
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Home',
-                      options: {
-                        topBar: {
-                          visible: true,
-                          leftButtons: [
-                            {
-                              icon: menu,
-                              fontSize: 10,
-                            },
-                          ],
-                          rightButtons: [
-                            {
-                              icon: search,
-                              fontSize: 10,
-                            },
-                          ],
-                        },
-                        bottomTab: {
-                          icon: listBook,
-                          fontSize: 30,
-                          animate: false,
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Orders',
-                      options: {
-                        visible: false,
-                        topBar: {
-                          title: {
-                            text: 'Đơn hàng của bạn',
-                          },
-                          rightButtons: [
-                            {
-                              icon: filter,
-                              fontSize: 10,
-                            },
-                          ],
-                        },
-                        bottomTab: {
-                          icon: orderHistory,
-                          fontSize: 30,
-                          animate: false,
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Profile',
-                      options: {
-                        topBar: {
-                          height: 0,
-                          visible: false,
-                        },
-                        bottomTab: {
-                          icon: user,
-                          fontSize: 30,
-                          animate: false,
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Notification',
-                      options: {
-                        topBar: {
-                          title: {
-                            text: 'Thông báo',
-                          },
-                        },
-                        bottomTab: {
-                          icon: notifications,
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Library',
-                      options: {
-                        topBar: {
-                          height: 0,
-                          visible: false,
-                        },
-                        bottomTab: {
-                          icon: library,
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          ],
-        },
-      },
-    });
-  });
-  // });
 };

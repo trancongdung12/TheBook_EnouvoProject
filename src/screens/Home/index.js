@@ -1,23 +1,28 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { introScreen } from '../../navigation/pushScreen';
+import { introScreen, pushScreen } from '../../navigation/pushScreen';
 import ItemBoook from '../../components/itemBoook';
 import ListBook from '../../components/ListBook';
 import { useDispatch, useSelector } from 'react-redux';
 import BookTypes from '../../redux/HomeRedux/actions';
-// const data = {
-//   readMore: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
-// };
-import { pushScreen } from '../../navigation/pushScreen';
+import { Navigation } from 'react-native-navigation';
 
 const Home = (props) => {
-  const dispatch = useDispatch();
-  // const [data, setData] = useState(0);
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
-  // useEffect(() => {
-  //   console.log(data);
-  //   setData(data);
-  // }, [datas]);
+
+  Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+    if (buttonId === 'sideBar') {
+      Navigation.mergeOptions('sideBar', {
+        sideMenu: {
+          left: {
+            visible: true,
+          },
+        },
+      });
+    } else if (buttonId === 'search') {
+      pushScreen(props.componentId, 'Search', '', '', false);
+    }
+  });
   return (
     <ScrollView style={styles.container}>
       <View style={styles.layoutItem}>

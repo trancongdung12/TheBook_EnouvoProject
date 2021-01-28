@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from '../redux/store';
 // import Screen
 import Home from '../screens/Home/index';
+import SideBar from './sideBar';
 import Login from '../screens/Auth/Login';
 import Intro from '../screens/Intro/index';
 import Detail from '../screens/Detail/index';
@@ -14,6 +15,7 @@ import Profile from '../screens/User/Profile';
 import Setting from '../screens/User/Setting';
 import Orders from '../screens/Orders/index';
 import Library from '../screens/Library';
+import Search from '../screens/Home/Search';
 function ReduxProvider(Component) {
   return (props) => (
     <Provider store={store}>
@@ -63,6 +65,11 @@ export function registerScreens() {
     () => Profile,
   );
   Navigation.registerComponent(
+    'SideBar',
+    () => ReduxProvider(SideBar),
+    () => SideBar,
+  );
+  Navigation.registerComponent(
     'Setting',
     () => ReduxProvider(Setting),
     () => Setting,
@@ -76,5 +83,10 @@ export function registerScreens() {
     'Library',
     () => ReduxProvider(Library),
     () => Library,
+  );
+  Navigation.registerComponent(
+    'Search',
+    () => ReduxProvider(Search),
+    () => Search,
   );
 }
