@@ -12,13 +12,15 @@ const Book = (props) => {
   return (
     <View style={styles.itemBook}>
       <View style={styles.layoutBook}>
-        <Image style={styles.imgBook} source={book} />
+        <Image style={styles.imgBook} source={{ uri: props.image }} />
         <View style={styles.infoBook}>
-          <Text style={styles.titleBook}>Tên bạn là gì ?</Text>
-          <Text style={styles.authorBook}>Shinkai Makolo</Text>
+          <Text style={styles.titleBook} numberOfLines={1}>
+            {props.title}
+          </Text>
+          <Text style={styles.authorBook}>{props.author}</Text>
           <View style={styles.starCommentBook}>
-            <Star starSize={4} />
-            <Text style={styles.commentCount}>324</Text>
+            <Star star={props.rating} />
+            <Text style={styles.commentCount}>{props.rating}</Text>
           </View>
           <View style={styles.layoutStock}>
             <View style={styles.itemStock}>
@@ -29,7 +31,7 @@ const Book = (props) => {
             </View>
             <View style={styles.itemStock}>
               <Icon name="ic-price" size={15} color={colors.primary} />
-              <Text style={styles.textStock}>36.000</Text>
+              <Text style={styles.textStock}>{props.price}</Text>
             </View>
           </View>
         </View>

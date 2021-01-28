@@ -1,14 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableWithoutFeedback,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import book from '../../assets/book.jpg';
 import colors from '../../themes/Colors';
 import Icon from 'react-native-vector-icons/thebook-appicon';
@@ -17,33 +9,45 @@ import AlertMessage from '../../components/AlertMessage';
 import { useSelector } from 'react-redux';
 import Star from '../../components/ItemStar';
 import { Navigation } from 'react-native-navigation';
-import { homeScreen, pushScreen } from '../../navigation/pushScreen';
+import { homeScreen, pushScreen , cartScreen} from '../../navigation/pushScreen';
 import ListBook from '../../components/ListBook';
+import { useDispatch } from 'react-redux';
+import CartActions from '../../redux/CartRedux/actions';
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
   const [model, setModal] = useState(false);
   const data = useSelector((state) => state.detail.responseBookDetail);
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
-  console.log('+++++++++++ Details1++++++++');
-  console.log(data);
-  console.log(data.categories[0].name);
-  const check = () => {
-    console.log(datas);
-    console.log('123');
-  };
-  // const [categories, setCategories] = useState([data.categories]);
+  const user = useSelector((state) => state.user);
+  const carts = useSelector((state) => state.carts);
+  const dispatch = useDispatch();
+  // show Alert
   const closeModal = () => {
     setModal(false);
   };
-
+  // add to cart function
+  const onAddToCart = () => {
+    if (data.availability === 0) {
+      setModal(true);
+    } else {
+      const dataOrder = {
+        bookId: data.id,
+        quantity: 1,
+        userId: user.data.id,
+      };
+      dispatch(CartActions.userAddCart(dataOrder));
+    }
+  };
+  // push back home screeen
   Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
     if (buttonId === 'back') {
       homeScreen();
     } else if (buttonId === 'cart') {
-      pushScreen(props.componentId, 'Cart', '', '', false);
+      dispatch(CartActions.userGetCart());
     }
   });
-
+  // Check loading of add to cart
+  // const checkLoadAddCart = carts.loadingAddCart;
   return (
     <ScrollView style={[styles.container, model && { opacity: 0.3 }]}>
       {model && (
@@ -52,6 +56,22 @@ const Detail = (props) => {
           title="Sách này hiện đã được mượn hết Bạn có muốn nhận thông báo ngay khi có lại"
           textFirstBtn="Nhận thông báo"
           textSecondBtn="Không, cảm ơn"
+          closeModalMain={closeModal}
+        />
+      )}
+      {carts.addCartError && (
+        <AlertMessage
+          isTwoBtn={false}
+          title="Sản phẩm đã có trong giỏ hàng"
+          textFirstBtn="Nhận thông báo"
+          closeModalMain={closeModal}
+        />
+      )}
+      {carts.responseAddCart && (
+        <AlertMessage
+          isTwoBtn={false}
+          title="Bạn đã thêm vào giỏ hàng thành công !"
+          textFirstBtn="Nhận thông báo"
           closeModalMain={closeModal}
         />
       )}
@@ -135,12 +155,13 @@ const Detail = (props) => {
               hoài mà nó không đủ 3 dòng, mệt.
             </Text>
           </View>
-          <TouchableOpacity onPress={check}>
+          <TouchableOpacity>
             <Text style={styles.viewAllComment}>Xem tất cả nhân xét</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.btnAddToCart} onPress={() => setModal(true)}>
+      {/* {checkLoadAddCart && <ActivityIndicator size="small" color="#0000ff" />} */}
+      <TouchableOpacity style={styles.btnAddToCart} onPress={() => onAddToCart()}>
         <Text style={styles.textAddToCart}>Thêm vào giỏ</Text>
       </TouchableOpacity>
     </ScrollView>

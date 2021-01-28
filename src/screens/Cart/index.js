@@ -3,12 +3,16 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import colors from '../../themes/Colors';
 import { Dimensions } from 'react-native';
+import { Navigation } from 'react-native-navigation';
+import { useDispatch, useSelector } from 'react-redux';
 import Book from '../../components/ItemBookHorizontal';
 import AlertMessage from '../../components/AlertMessage';
 import TitleHeader from '../../components/TitleHeader';
+import { pushScreen, homeScreen } from '../../navigation/pushScreen';
 const windowWidth = Dimensions.get('window').width;
 
-const Cart = () => {
+const Cart = (props) => {
+  const data = useSelector((state) => state.carts.responseGetCart.data.items);
   const [model, setModal] = useState(false);
   const closeModal = () => {
     setModal(false);
@@ -18,6 +22,9 @@ const Cart = () => {
   if (qtyBook === 0) {
     isOutStock = true;
   }
+  const onBackLayout = () => {
+    homeScreen();
+  };
   return (
     <View style={styles.container}>
       <TitleHeader
@@ -25,7 +32,7 @@ const Cart = () => {
         leftIcon={'ic-back'}
         rightIcon={'ic-trash'}
         type={'delete'}
-        // onBackLayout={onBackLayout}
+        onBackLayout={onBackLayout}
       />
       {model && (
         <AlertMessage
@@ -37,11 +44,19 @@ const Cart = () => {
       )}
       <ScrollView style={model && { opacity: 0.3 }}>
         <View style={styles.containCart}>
-          <Book isOutStock={isOutStock} qtyBook={qtyBook} />
-          <Book isOutStock={isOutStock} qtyBook={qtyBook} />
-          <Book isOutStock={isOutStock} qtyBook={qtyBook} />
-          <Book isOutStock={isOutStock} qtyBook={qtyBook} />
-          <Book isOutStock={isOutStock} qtyBook={qtyBook} />
+          {data.map((item, index) => {
+            return (
+              <Book
+                key={index}
+                title={item.book.title}
+                author={item.book.authors[0].name}
+                price={item.book.price}
+                qtyBook={item.book.quantity}
+                image={item.book.medias[0]}
+                rating={item.book.overallStarRating}
+              />
+            );
+          })}
         </View>
       </ScrollView>
       <TouchableOpacity style={styles.btnOrderBook} onPress={() => setModal(true)}>

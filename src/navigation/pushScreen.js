@@ -205,6 +205,27 @@ export const introScreen = () => {
   });
 };
 
+export const cartScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Cart',
+              options: {
+                topBar: {
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+};
+
 export const detailScreen = () => {
   Promise.all([
     Icons.getImageSource('ic-back', 25),

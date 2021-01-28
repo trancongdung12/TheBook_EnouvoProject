@@ -24,6 +24,7 @@ function ReduxProvider(Component) {
     </Provider>
   );
 }
+
 export function registerScreens() {
   Navigation.registerComponent(
     'Intro',
