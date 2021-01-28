@@ -2,6 +2,7 @@ import { Navigation } from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 
 import Icons from 'react-native-vector-icons/thebook-appicon';
+import TowIcon from '../components/TowIcon';
 export const pushScreen = (componentId, screenApp, passProps, title, visibles) => {
   Navigation.push(componentId, {
     component: {
@@ -204,12 +205,33 @@ export const introScreen = () => {
   });
 };
 
+export const cartScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Cart',
+              options: {
+                topBar: {
+                  visible: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+};
+
 export const detailScreen = () => {
   Promise.all([
     Icons.getImageSource('ic-back', 25),
     Icons.getImageSource('ic-cart-1', 25),
     Icons.getImageSource('ic-like-pre', 25),
-  ]).then(([back, like, order]) => {
+  ]).then(([back, order, like]) => {
     Navigation.setRoot({
       root: {
         stack: {
@@ -230,7 +252,7 @@ export const detailScreen = () => {
                     ],
                     rightButtons: [
                       {
-                        id: 'heart',
+                        id: 'cart',
                         icon: order,
                         fontSize: 10,
                         color: '#555',

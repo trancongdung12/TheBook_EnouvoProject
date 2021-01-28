@@ -12,7 +12,7 @@ import { Navigation } from 'react-native-navigation';
 import ListBook from '../../components/ListBook';
 import { useDispatch } from 'react-redux';
 import CartActions from '../../redux/CartRedux/actions';
-import pushScreen, { homeScreen } from '../../navigation/pushScreen';
+import { homeScreen } from '../../navigation/pushScreen';
 import AddComment from '../../components/AddComment';
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
@@ -24,7 +24,6 @@ const Detail = (props) => {
   const carts = useSelector((state) => state.carts);
   const dispatch = useDispatch();
   // show Alert
-
   const closeModal = () => {
     setModal(false);
   };
@@ -45,6 +44,8 @@ const Detail = (props) => {
   Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
     if (buttonId === 'back') {
       homeScreen();
+    } else if (buttonId === 'cart') {
+      dispatch(CartActions.userGetCart());
     }
   });
   // Check loading of add to cart
@@ -65,7 +66,7 @@ const Detail = (props) => {
       {carts.addCartError && (
         <AlertMessage
           isTwoBtn={false}
-          title={carts.addCartError.data.message}
+          title="Sản phẩm đã có trong giỏ hàng"
           textFirstBtn="Nhận thông báo"
           closeModalMain={closeModal}
         />
