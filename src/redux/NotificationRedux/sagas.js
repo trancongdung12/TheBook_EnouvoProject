@@ -10,7 +10,7 @@ export function* userGetNotification() {
     console.log(error);
   }
 }
-const userLoginSagas = () => [
+const userNotificationSagas = () => [
   takeLatest(NotificationTypes.USER_GET_NOTIFICATION, userGetNotification),
 ];
-export default userLoginSagas();
+export default userNotificationSagas();

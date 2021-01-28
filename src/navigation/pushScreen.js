@@ -41,6 +41,7 @@ export const loginScreen = () => {
     },
   });
 };
+
 export const homeScreen = () => {
   Promise.all([
     Icons.getImageSource('ic-home', 30),

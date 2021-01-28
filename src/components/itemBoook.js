@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import book from '../assets/book.jpg';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import colors from '../themes/Colors';
 import Icon from 'react-native-vector-icons/thebook-appicon';
+import { useDispatch } from 'react-redux';
+import DetailActions from '../redux/DetailRedux/actions';
 
 const itemBoook = (props) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const dispatch = useDispatch();
+  const onDetailBook = () => {
+    dispatch(DetailActions.getDetailBook(props.idBook));
+  };
   return (
-    <View style={styles.sliderRelated}>
+    <TouchableOpacity style={styles.sliderRelated} onPress={() => onDetailBook()}>
       <View style={styles.bookRelated}>
         <Image style={styles.bookRelatedImg} source={{ uri: props.image }} />
         <Text style={styles.titleBookRelated} numberOfLines={1}>
@@ -24,7 +30,7 @@ const itemBoook = (props) => {
           <Text style={styles.textPriceBookRelated}>{props.price} đ</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

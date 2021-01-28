@@ -17,7 +17,9 @@ export default Notification;
 const styles = StyleSheet.create({
   container: { width: width },
   bodyNotification: {
-    margin: (10 * width) / 100,
-    width: width - 2 * ((10 * width) / 100),
+    paddingHorizontal: (7 * width) / 100,
+    marginTop: (10 * width) / 100,
+    marginBottom: (10 * width) / 100,
+    width: width - 2 * ((7 * width) / 100),
   },
 });

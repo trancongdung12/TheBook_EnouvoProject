@@ -3,9 +3,9 @@ import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import colors from '../themes/Colors';
 
-const Star = () => {
+const Star = (props) => {
   var starView = [];
-  let starSize = 4;
+  let starSize = props.star;
   for (let i = 0; i < 5; i++) {
     if (i < starSize) {
       starView.push(<Icon key={i} name="star" size={10} color={colors.primary} />);

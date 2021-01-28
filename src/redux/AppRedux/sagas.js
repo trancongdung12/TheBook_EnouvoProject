@@ -1,10 +1,10 @@
 import { takeLatest, select, put } from 'redux-saga/effects';
 import { AppTypes } from './actions';
 import http from '../../api/http';
-import { homeScreen, loginScreen } from '../../navigation/pushScreen';
+import { loginScreen } from '../../navigation/pushScreen';
 import AsyncStorage from '@react-native-community/async-storage';
 import BookTypesActions from '../HomeRedux/actions';
-
+import OrderTypesAction from '../OrderRedux/actions';
 export function* loadingAppSagas() {
   try {
     const storeToken = yield AsyncStorage.getItem('token');
@@ -18,6 +18,7 @@ export function* loadingAppSagas() {
     http.setAuthorizationHeader(token);
     if (token) {
       yield put(BookTypesActions.getBookTypes());
+      yield put(OrderTypesAction.userGetOrders());
     } else {
       loginScreen();
     }
