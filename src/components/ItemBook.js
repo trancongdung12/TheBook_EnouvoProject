@@ -4,6 +4,7 @@ import colors from '../themes/Colors';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import { useDispatch } from 'react-redux';
 import DetailActions from '../redux/DetailRedux/actions';
+import ItemStar from './ItemStar';
 
 const ItemBook = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -20,13 +21,7 @@ const ItemBook = (props) => {
         </Text>
         <Text style={styles.authorBookRelated}>{props.authors}</Text>
         <View style={styles.layoutStar}>
-          <View style={styles.layoutStarBookRelated}>
-            <Icon name="star" size={10} color={colors.primary} />
-            <Icon name="star" size={10} color={colors.primary} />
-            <Icon name="star" size={10} color={colors.primary} />
-            <Icon name="star" size={10} color={colors.primary} />
-            <Icon name="ic-star-pre" size={10} color={colors.txtLevel2} />
-          </View>
+          <ItemStar star={props.rating} />
           <Text style={styles.textPriceBookRelated}>{props.price} đ</Text>
         </View>
       </View>
@@ -37,7 +32,7 @@ const ItemBook = (props) => {
 const styles = StyleSheet.create({
   sliderRelated: {
     marginTop: 8,
-    marginRight: 16,
+    marginRight: 20,
   },
   bookRelatedImg: {
     height: 165,

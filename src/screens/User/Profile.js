@@ -96,6 +96,7 @@ const Profile = (props) => {
                 authors={item.authors[0].name}
                 price={item.price}
                 idBook={item.id}
+                rating={item.overallStarRating}
                 idComponent={props.componentId}
               />
             );
@@ -201,6 +202,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   layoutBook: {
+    marginLeft: 20,
     marginTop: 20,
     flexDirection: 'row',
   },

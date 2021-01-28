@@ -58,6 +58,7 @@ const Filter = (props) => {
                   authors={item.authors[0].name}
                   price={item.price}
                   idBook={item.id}
+                  rating={item.overallStarRating}
                   idComponent={props.componentId}
                 />
               );
