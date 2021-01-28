@@ -1,7 +1,7 @@
 import { takeLatest, select, put } from 'redux-saga/effects';
 import { AppTypes } from './actions';
 import http from '../../api/http';
-import { loginScreen } from '../../navigation/pushScreen';
+import { introScreen, loginScreen } from '../../navigation/pushScreen';
 import AsyncStorage from '@react-native-community/async-storage';
 import BookTypesActions from '../HomeRedux/actions';
 import OrderTypesAction from '../OrderRedux/actions';
@@ -12,7 +12,7 @@ export function* loadingAppSagas() {
     if (storeToken) {
       token = storeToken;
     } else {
-      token = yield select((state) => state.login.token);
+      token = yield select((state) => state.auth.token);
     }
 
     http.setAuthorizationHeader(token);
@@ -28,5 +28,18 @@ export function* loadingAppSagas() {
   }
 }
 
-const appSagas = () => [takeLatest(AppTypes.START_APP, loadingAppSagas)];
+export function* goToIntroSagas() {
+  introScreen();
+}
+
+export function* makeSkipIntroSagas() {
+  yield AsyncStorage.setItem('skip', JSON.stringify(true));
+  yield loadingAppSagas();
+}
+
+const appSagas = () => [
+  takeLatest(AppTypes.START_APP, loadingAppSagas),
+  takeLatest(AppTypes.GO_TO_INTRO, goToIntroSagas),
+  takeLatest(AppTypes.MAKE_SKIP_INTRO, makeSkipIntroSagas),
+];
 export default appSagas();

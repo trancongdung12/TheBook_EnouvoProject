@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import SignUpTypes from '../../redux/AuthRedux/Register/actions';
+import SignUpTypes from '../../redux/AuthRedux/actions';
 // import theme
 import { loginScreen } from '../../navigation/pushScreen';
 import Icons from 'react-native-vector-icons/thebook-appicon';
@@ -11,21 +11,21 @@ import ButtonDefault from '../../components/ButtonDefault';
 const { width } = Dimensions.get('window');
 const Register = () => {
   // state
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [passAgain, setPassAgain] = useState('');
   // function
   const dispatch = useDispatch();
-  const checkLoadingSignUp = useSelector((state) => state.signUp.loadingSignUp);
+  const checkLoadingSignUp = useSelector((state) => state.auth.loading);
   const onRegister = () => {
     if (
-      name === '' ||
+      firstName === '' ||
       email === '' ||
       phone === '' ||
-      userName === '' ||
+      lastName === '' ||
       passAgain === '' ||
       password === ''
     ) {
@@ -36,8 +36,8 @@ const Register = () => {
       alert('Mật khẩu của bạn không khớp !');
     } else {
       const data = {
-        firstName: name,
-        lastName: userName,
+        firstName: lastName,
+        lastName: firstName,
         phoneNumber: phone,
         email: email,
         password: password,
@@ -57,15 +57,22 @@ const Register = () => {
         </View>
         <View style={styles.contentRegister}>
           <Inputs
-            title="Tên người dùng*"
-            name=""
-            txtChange={(text) => setName(text)}
+            title="Họ*"
+            name="Nhập Tài Khoản"
+            txtChange={(text) => setFirstName(text)}
+            typeInput="emailAddress"
+            secureTextEntry={false}
+          />
+          <Inputs
+            title="Tên*"
+            name="Nhập Tài Khoản"
+            txtChange={(text) => setLastName(text)}
             typeInput="emailAddress"
             secureTextEntry={false}
           />
           <Inputs
             title="Email*"
-            name=""
+            name="Nhập Tài Khoản"
             txtChange={(text) => setEmail(text)}
             typeInput="emailAddress"
             secureTextEntry={false}
@@ -74,13 +81,6 @@ const Register = () => {
             title="Số điện thoại*"
             name="Nhập Tài Khoản"
             txtChange={(text) => setPhone(text)}
-            typeInput="emailAddress"
-            secureTextEntry={false}
-          />
-          <Inputs
-            title="Tên tài khoản*"
-            name="Nhập Tài Khoản"
-            txtChange={(text) => setUserName(text)}
             typeInput="emailAddress"
             secureTextEntry={false}
           />

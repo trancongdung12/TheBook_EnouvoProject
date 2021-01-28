@@ -9,13 +9,15 @@ import AlertMessage from '../../components/AlertMessage';
 import { useSelector } from 'react-redux';
 import Star from '../../components/ItemStar';
 import { Navigation } from 'react-native-navigation';
-import { homeScreen } from '../../navigation/pushScreen';
 import ListBook from '../../components/ListBook';
 import { useDispatch } from 'react-redux';
 import CartActions from '../../redux/CartRedux/actions';
+import pushScreen, { homeScreen } from '../../navigation/pushScreen';
+import AddComment from '../../components/AddComment';
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
   const [model, setModal] = useState(false);
+  const [modelReview, setModelReview] = useState(false);
   const data = useSelector((state) => state.detail.responseBookDetail);
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
   const user = useSelector((state) => state.user);
@@ -48,7 +50,9 @@ const Detail = (props) => {
   // Check loading of add to cart
   // const checkLoadAddCart = carts.loadingAddCart;
   return (
-    <ScrollView style={[styles.container, model && { opacity: 0.3 }]}>
+    <ScrollView
+      style={[styles.container, model && { opacity: 0.3 }, modelReview && { opacity: 0.3 }]}
+    >
       {model && (
         <AlertMessage
           isTwoBtn={true}
@@ -74,6 +78,7 @@ const Detail = (props) => {
           closeModalMain={closeModal}
         />
       )}
+      {modelReview && <AddComment closeReview={() => setModelReview(false)} />}
       <View style={styles.layoutDetail}>
         <Image
           style={styles.bookImg}
@@ -125,7 +130,7 @@ const Detail = (props) => {
         </ScrollView>
         <View style={styles.layoutComment}>
           <Text style={styles.titleComment}>Nhận xét</Text>
-          <TouchableOpacity style={styles.btnComment}>
+          <TouchableOpacity style={styles.btnComment} onPress={() => setModelReview(true)}>
             <Text style={styles.textButtonComment}>Viết nhận xét cho cuốn sách này</Text>
           </TouchableOpacity>
           <View style={styles.layoutItemComment}>

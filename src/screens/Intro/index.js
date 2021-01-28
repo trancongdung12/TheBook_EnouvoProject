@@ -7,7 +7,8 @@ import intro1 from '../../assets/image/intro1.png';
 import intro2 from '../../assets/image/intro2.png';
 import intro3 from '../../assets/image/intro3.png';
 import colors from '../../themes/Colors';
-import { homeScreen } from '../../navigation/pushScreen';
+import { makeSkipIntro } from '../../redux/AppRedux/actions';
+import { useDispatch } from 'react-redux';
 
 const data = {
   intro: [
@@ -35,6 +36,7 @@ const data = {
 const Intro = () => {
   const [entries, setEntries] = React.useState(data.intro);
   const [activeSlide, setActiveSlide] = React.useState(0);
+  const dispatch = useDispatch();
   const _renderItem = ({ item, index }) => {
     return <Book key={index} inform={item} />;
   };
@@ -73,7 +75,7 @@ const Intro = () => {
                 }}
                 inactiveDotScale={0.6}
               />
-              <TouchableOpacity style={styles.btnStart} onPress={() => homeScreen()}>
+              <TouchableOpacity style={styles.btnStart} onPress={() => dispatch(makeSkipIntro())}>
                 <Text style={styles.txtStart}>Bắt đầu</Text>
               </TouchableOpacity>
             </View>

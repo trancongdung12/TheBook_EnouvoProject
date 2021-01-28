@@ -11,7 +11,7 @@ import {
 import Icons from 'react-native-vector-icons/thebook-appicon';
 import { pushScreen } from '../../navigation/pushScreen';
 import { useDispatch, useSelector } from 'react-redux';
-import LoginActions from '../../redux/AuthRedux/Login/actions';
+import LoginActions from '../../redux/AuthRedux/actions';
 // import components
 import Colors from '../../themes/Colors';
 import Input from '../../components/TextInput';
@@ -21,7 +21,7 @@ const Login = (props) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const checkLoadingLogin = useSelector((state) => state.login.loadingLogin);
+  const checkLoadingLogin = useSelector((state) => state.auth.loading);
   const onRegister = () => {
     pushScreen(props.componentId, 'Register', '', '', false);
   };
