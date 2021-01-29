@@ -11,3 +11,7 @@ export async function userGetApiCart() {
 export async function userAddBookToCartApi(data) {
   return http.post('api/basket', data);
 }
+
+export async function userOrderBooksApi(data) {
+  return http.post('api/orders', data);
+}

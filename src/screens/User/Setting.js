@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/thebook-appicon';
 import colors from '../../themes/Colors';
 import { useDispatch } from 'react-redux';
 import LoginTypes from '../../redux/AuthRedux/actions';
-
+import { pushScreen } from '../../navigation/pushScreen';
 const windowWidth = Dimensions.get('window').width;
 const Item = (props) => {
   return (
@@ -16,12 +16,24 @@ const Item = (props) => {
     </TouchableOpacity>
   );
 };
-const Setting = () => {
+const Setting = (props) => {
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
-      <Item icon="ic-profile" value="Thông tin cá nhân" />
-      <Item icon="ic-password" value="Đổi mật khẩu" />
+      <Item
+        icon="ic-profile"
+        value="Thông tin cá nhân"
+        onPressEvent={() =>
+          pushScreen(props.componentId, 'EditInfo', '', 'Thông tin cá nhân', true)
+        }
+      />
+      <Item
+        icon="ic-password"
+        value="Đổi mật khẩu"
+        onPressEvent={() =>
+          pushScreen(props.componentId, 'ChangePassword', '', 'Đổi mật khẩu', true)
+        }
+      />
       <Item icon="ic-help" value="Hỗ trợ" />
       <Item icon="ic-feedback" value="Phản đối" />
       <Item icon="ic-regulation" value="Quy định" />

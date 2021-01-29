@@ -18,6 +18,8 @@ import Orders from '../screens/Orders/index';
 import Library from '../screens/Library';
 import Search from '../screens/Home/Search';
 import UploadImage from '../components/UploadImage';
+import ChangePassword from '../screens/User/ChangePassword';
+import EditInfo from '../screens/User/EditInfo';
 function ReduxProvider(Component) {
   return (props) => (
     <Provider store={store}>
@@ -101,5 +103,15 @@ export function registerScreens() {
     'UploadImage',
     () => ReduxProvider(UploadImage),
     () => UploadImage,
+  );
+    Navigation.registerComponent(
+    'ChangePassword',
+    () => ReduxProvider(ChangePassword),
+    () => ChangePassword,
+  );
+  Navigation.registerComponent(
+    'EditInfo',
+    () => ReduxProvider(EditInfo),
+    () => EditInfo,
   );
 }
