@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import CartActions from '../../redux/CartRedux/actions';
 import { homeScreen, pushScreen } from '../../navigation/pushScreen';
 import AddComment from '../../components/AddComment';
+import DetailActions from '../../redux/DetailRedux/actions';
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
   const [model, setModal] = useState(false);
@@ -51,6 +52,14 @@ const Detail = (props) => {
 
   const onSuccess = () => {
     pushScreen(props.componentId, 'Cart', '', 'Gio hang', false, 'ic-back', 'ic-trash');
+  };
+
+  const onDetailBook = (id) => {
+    dispatch(DetailActions.getDetailBook(id, onSuccessListBook));
+  };
+
+  const onSuccessListBook = () => {
+    pushScreen(props.componentId, 'Detail', '', '', true, 'ic-back', 'ic-cart-1');
   };
 
   // Check loading of add to cart
@@ -131,6 +140,7 @@ const Detail = (props) => {
                 idBook={item.id}
                 rating={item.overallStarRating}
                 idComponent={props.componentId}
+                onDetailBook={onDetailBook}
               />
             );
           })}

@@ -73,6 +73,7 @@ const Home = (props) => {
                 idBook={item.id}
                 rating={item.overallStarRating}
                 idComponent={props.componentId}
+                onDetailBook={onDetailBook}
               />
             );
           })}
@@ -92,6 +93,7 @@ const Home = (props) => {
                 idBook={item.id}
                 rating={item.overallStarRating}
                 idComponent={props.componentId}
+                onDetailBook={onDetailBook}
               />
             );
           })}

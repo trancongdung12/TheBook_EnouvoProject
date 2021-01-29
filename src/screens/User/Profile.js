@@ -17,6 +17,7 @@ import ModalCode from '../../components/ModalCode';
 import { useDispatch, useSelector } from 'react-redux';
 import userActions from '../../redux/UserRedux/actions';
 import { pushScreen } from '../../navigation/pushScreen';
+import DetailActions from '../../redux/DetailRedux/actions';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -33,6 +34,13 @@ const Profile = (props) => {
   const user = useSelector((state) => state.user.data);
   const uploadImage = () => {
     pushScreen(props.componentId, 'UploadImage', '', '', false);
+  };
+  const onDetailBook = (id) => {
+    dispatch(DetailActions.getDetailBook(id, onSuccess));
+  };
+
+  const onSuccess = () => {
+    pushScreen(props.componentId, 'Detail', '', '', true, 'ic-back', 'ic-cart-1');
   };
   return (
     <ScrollView style={[styles.container, modal && { opacity: 0.3 }]}>
@@ -101,6 +109,7 @@ const Profile = (props) => {
                 idBook={item.id}
                 rating={item.overallStarRating}
                 idComponent={props.componentId}
+                onDetailBook={onDetailBook}
               />
             );
           })}
