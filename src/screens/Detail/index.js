@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
-import book from '../../assets/book.jpg';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import colors from '../../themes/Colors';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import ItemBook from '../../components/ItemBook';
@@ -13,21 +12,33 @@ import ListBook from '../../components/ListBook';
 import { useDispatch } from 'react-redux';
 import CartActions from '../../redux/CartRedux/actions';
 import { homeScreen } from '../../navigation/pushScreen';
-import AddComment from '../../components/AddComment';
+import AddComment from '../../components/HandleComment';
+import Comment from '../../components/ItemComment';
+import ReviewActions from '../../redux/ReviewRedux/actions';
+
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
-  const [model, setModal] = useState(false);
-  const [modelReview, setModelReview] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [modalReview, setModalReview] = useState(false);
+  const [modalUpdateReview, setModalUpdateReview] = useState(false);
+  const [isCommented, setIsCommented] = useState(true);
   const data = useSelector((state) => state.detail.responseBookDetail);
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
   const user = useSelector((state) => state.user);
   const carts = useSelector((state) => state.carts);
+  const allReviews = useSelector((state) => state.review);
   const dispatch = useDispatch();
-  // show Alert
+  useEffect(() => {
+    dispatch(ReviewActions.getALlReviewBook());
+    allReviews.reviewData.reviews.map((item) => {
+      item.bookId === data.id && item.userId === user.data.id && setIsCommented(false);
+    });
+  }, [dispatch, data.id, user.data.id, allReviews]);
+
   const closeModal = () => {
     setModal(false);
   };
-  // add to cart function
+
   const onAddToCart = () => {
     if (data.availability === 0) {
       setModal(true);
@@ -40,7 +51,7 @@ const Detail = (props) => {
       dispatch(CartActions.userAddCart(dataOrder));
     }
   };
-  // push back home screeen
+
   Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
     if (buttonId === 'back') {
       homeScreen();
@@ -48,13 +59,39 @@ const Detail = (props) => {
       dispatch(CartActions.userGetCart());
     }
   });
-  // Check loading of add to cart
-  // const checkLoadAddCart = carts.loadingAddCart;
+
+  const AlertWarning = (id) => {
+    Alert.alert(
+      'Xóa Bình Luận',
+      'Bạn có chắc xóa bình luận này không?',
+      [
+        {
+          text: 'Không',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'Có',
+          onPress: () => dispatch(ReviewActions.removeReviewBook(id)),
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  const onUpdateComment = (id) => {
+    dispatch(ReviewActions.getEditReviewBook(id, onSuccess));
+  };
+
+  const onSuccess = () => {
+    setModalUpdateReview(true);
+  };
+
   return (
     <ScrollView
-      style={[styles.container, model && { opacity: 0.3 }, modelReview && { opacity: 0.3 }]}
+      style={[styles.container, modal && { opacity: 0.3 }, modalReview && { opacity: 0.3 }]}
     >
-      {model && (
+      {modal && (
         <AlertMessage
           isTwoBtn={true}
           title="Sách này hiện đã được mượn hết Bạn có muốn nhận thông báo ngay khi có lại"
@@ -79,7 +116,16 @@ const Detail = (props) => {
           closeModalMain={closeModal}
         />
       )}
-      {modelReview && <AddComment closeReview={() => setModelReview(false)} />}
+      {modalReview && <AddComment closeReview={() => setModalReview(false)} />}
+
+      {modalUpdateReview && (
+        <AddComment
+          isUpdate={true}
+          reviewData={allReviews.editData}
+          closeReview={() => setModalUpdateReview(false)}
+        />
+      )}
+
       <View style={styles.layoutDetail}>
         <Image
           style={styles.bookImg}
@@ -131,41 +177,41 @@ const Detail = (props) => {
         </ScrollView>
         <View style={styles.layoutComment}>
           <Text style={styles.titleComment}>Nhận xét</Text>
-          <TouchableOpacity style={styles.btnComment} onPress={() => setModelReview(true)}>
-            <Text style={styles.textButtonComment}>Viết nhận xét cho cuốn sách này</Text>
-          </TouchableOpacity>
-          <View style={styles.layoutItemComment}>
-            <View style={styles.itemComment}>
-              <View style={styles.profileComment}>
-                <Image style={styles.avtComment} source={book} />
-                <View style={styles.containStarComment}>
-                  <Text style={styles.nameComment}>Kim Dung</Text>
-                  <View style={styles.layoutStarComment}>
-                    <Star star={data.overallStarRating} />
-                  </View>
-                </View>
-              </View>
-              <View style={styles.layoutHandleComment}>
-                <Icon name="ic-edit-comment" size={15} color={colors.txtLevel2} />
-                <Icon
-                  name="ic-trash"
-                  style={{ marginLeft: 13 }}
-                  size={15}
-                  color={colors.txtLevel2}
+          {isCommented && (
+            <TouchableOpacity style={styles.btnComment} onPress={() => setModalReview(true)}>
+              <Text style={styles.textButtonComment}>Viết nhận xét cho cuốn sách này</Text>
+            </TouchableOpacity>
+          )}
+          {allReviews.reviewData.reviews.map((item, index) => {
+            return (
+              item.bookId === data.id &&
+              (item.userId === user.data.id ? (
+                <Comment
+                  isUser={true}
+                  idReview={item.id}
+                  key={index}
+                  content={item.content}
+                  starSize={item.starRating}
+                  name={item.userName}
+                  showAlert={AlertWarning}
+                  openUpdate={onUpdateComment}
                 />
-              </View>
-            </View>
-            <Text style={styles.contentComment}>
-              Sách hay, cần có thêm nhiều đầu sách như vậy hơn nữa để tuổi trẻ bớt bị tẩy não. Ghi
-              hoài mà nó không đủ 3 dòng, mệt.
-            </Text>
-          </View>
+              ) : (
+                <Comment
+                  idBook={item.bookId}
+                  key={index}
+                  content={item.content}
+                  starSize={item.starRating}
+                  name={item.userName}
+                />
+              ))
+            );
+          })}
           <TouchableOpacity>
             <Text style={styles.viewAllComment}>Xem tất cả nhân xét</Text>
           </TouchableOpacity>
         </View>
       </View>
-      {/* {checkLoadAddCart && <ActivityIndicator size="small" color="#0000ff" />} */}
       <TouchableOpacity style={styles.btnAddToCart} onPress={() => onAddToCart()}>
         <Text style={styles.textAddToCart}>Thêm vào giỏ</Text>
       </TouchableOpacity>
@@ -174,6 +220,28 @@ const Detail = (props) => {
 };
 
 const styles = StyleSheet.create({
+  viewAllComment: {
+    marginTop: 12,
+    textAlign: 'center',
+    color: colors.waterBlueTwo,
+  },
+  layoutComment: {
+    marginTop: 15,
+  },
+  titleComment: {
+    fontSize: 16,
+    color: colors.txtLevel1,
+  },
+  btnComment: {
+    marginTop: 12,
+    borderColor: colors.waterBlueTwo,
+    borderWidth: 1,
+    paddingVertical: 9,
+  },
+  textButtonComment: {
+    textAlign: 'center',
+    color: colors.waterBlueTwo,
+  },
   container: {
     flex: 1,
   },
@@ -249,79 +317,6 @@ const styles = StyleSheet.create({
   },
   titleRelated: {
     fontSize: 16,
-  },
-  sliderRelated: {
-    marginTop: 8,
-  },
-  bookRelatedImg: {
-    height: 165,
-    width: 115,
-  },
-  titleBookRelated: {
-    fontSize: 14,
-    color: colors.txtLevel1,
-    marginTop: 8,
-  },
-  authorBookRelated: {
-    color: colors.txtLevel2,
-    fontSize: 12,
-  },
-  layoutStarBookRelated: {
-    flexDirection: 'row',
-  },
-  textPriceBookRelated: {
-    fontSize: 10,
-    marginLeft: 8,
-    color: colors.txtLevel2,
-  },
-  layoutComment: {
-    marginTop: 15,
-  },
-  titleComment: {
-    fontSize: 16,
-    color: colors.txtLevel1,
-  },
-  btnComment: {
-    marginTop: 12,
-    borderColor: colors.waterBlueTwo,
-    borderWidth: 1,
-    paddingVertical: 9,
-  },
-  textButtonComment: {
-    textAlign: 'center',
-    color: colors.waterBlueTwo,
-  },
-  itemComment: {
-    marginTop: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  profileComment: {
-    flexDirection: 'row',
-  },
-  avtComment: {
-    height: 30,
-    width: 30,
-    borderRadius: 15,
-  },
-  containStarComment: {
-    marginLeft: 8,
-  },
-  layoutStarComment: {
-    flexDirection: 'row',
-  },
-  layoutHandleComment: {
-    flexDirection: 'row',
-  },
-  contentComment: {
-    fontSize: 12,
-    color: colors.txtLevel3,
-    marginTop: 4,
-  },
-  viewAllComment: {
-    marginTop: 12,
-    textAlign: 'center',
-    color: colors.waterBlueTwo,
   },
   btnAddToCart: {
     marginTop: 10,
