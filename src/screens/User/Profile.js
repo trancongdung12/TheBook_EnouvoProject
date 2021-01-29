@@ -31,6 +31,9 @@ const Profile = (props) => {
     dispatch(userActions.userInfo());
   }, []);
   const user = useSelector((state) => state.user.data);
+  const uploadImage = () => {
+    pushScreen(props.componentId, 'UploadImage', '', '', false);
+  };
   return (
     <ScrollView style={[styles.container, modal && { opacity: 0.3 }]}>
       {modal && (
@@ -41,7 +44,7 @@ const Profile = (props) => {
         />
       )}
       <View style={styles.headerIcon}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={uploadImage}>
           <Icon name="ic-photo" size={20} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
@@ -86,7 +89,7 @@ const Profile = (props) => {
         <Icon name="ic-filter-change" size={20} color={colors.btnLevel2} />
       </View>
       <View style={styles.layoutBook}>
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {datas.map((item, index) => {
             return (
               <ItemBook

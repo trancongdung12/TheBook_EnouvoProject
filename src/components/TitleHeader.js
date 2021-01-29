@@ -20,10 +20,9 @@ const styles = StyleSheet.create({
   topHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 30,
-    marginLeft: 20,
-    marginBottom: 15,
-    marginRight: 20,
+    padding: 20,
+    borderBottomWidth: 1,
+    borderColor: '#e9e9e9',
   },
   icTop: {
     fontSize: 20,

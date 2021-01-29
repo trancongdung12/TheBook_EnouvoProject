@@ -7,13 +7,8 @@ import DetailActions from '../redux/DetailRedux/actions';
 import ItemStar from './ItemStar';
 
 const ItemBook = (props) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const dispatch = useDispatch();
-  const onDetailBook = () => {
-    dispatch(DetailActions.getDetailBook(props.idBook));
-  };
   return (
-    <TouchableOpacity style={styles.sliderRelated} onPress={() => onDetailBook()}>
+    <TouchableOpacity style={styles.sliderRelated} onPress={() => props.onDetailBook(props.idBook)}>
       <View style={styles.bookRelated}>
         <Image style={styles.bookRelatedImg} source={{ uri: props.image }} />
         <Text style={styles.titleBookRelated} numberOfLines={1}>

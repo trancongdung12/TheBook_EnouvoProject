@@ -1,26 +1,40 @@
 import { Navigation } from 'react-native-navigation';
-import Icon from 'react-native-vector-icons/thebook-appicon';
-
 import Icons from 'react-native-vector-icons/thebook-appicon';
-import TowIcon from '../components/TowIcon';
-export const pushScreen = (componentId, screenApp, passProps, title, visibles) => {
-  Navigation.push(componentId, {
-    component: {
-      name: screenApp,
-      passProps: {
-        data: passProps,
-        title: title,
-      },
-      options: {
-        topBar: {
-          title: {
-            text: title,
+export const pushScreen = (componentId, screenApp, passProps, title, visible, left, right) => {
+  Promise.all([Icons.getImageSource(left, 25), Icons.getImageSource(right, 25)]).then(
+    ([leftImage, rightImage]) => {
+      Navigation.push(componentId, {
+        component: {
+          name: screenApp,
+          passProps: {
+            data: passProps,
+            title: title,
           },
-          visible: visibles,
+          options: {
+            topBar: {
+              visible: visible,
+              leftButtons: [
+                {
+                  id: left,
+                  icon: leftImage,
+                  fontSize: 10,
+                  color: '#555',
+                },
+              ],
+              rightButtons: [
+                {
+                  id: right,
+                  icon: rightImage,
+                  fontSize: 10,
+                  color: '#555',
+                },
+              ],
+            },
+          },
         },
-      },
+      });
     },
-  });
+  );
 };
 export const loginScreen = () => {
   Navigation.setRoot({
@@ -107,6 +121,9 @@ export const homeScreen = () => {
                         component: {
                           name: 'Orders',
                           options: {
+                            topBar: {
+                              visible: false,
+                            },
                             visible: false,
                             bottomTab: {
                               icon: orderHistory,
@@ -147,6 +164,9 @@ export const homeScreen = () => {
                         component: {
                           name: 'Notification',
                           options: {
+                            topBar: {
+                              visible: false,
+                            },
                             bottomTab: {
                               icon: notifications,
                             },
@@ -202,69 +222,5 @@ export const introScreen = () => {
         ],
       },
     },
-  });
-};
-
-export const cartScreen = () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Cart',
-              options: {
-                topBar: {
-                  visible: false,
-                },
-              },
-            },
-          },
-        ],
-      },
-    },
-  });
-};
-
-export const detailScreen = () => {
-  Promise.all([
-    Icons.getImageSource('ic-back', 25),
-    Icons.getImageSource('ic-cart-1', 25),
-    Icons.getImageSource('ic-like-pre', 25),
-  ]).then(([back, order, like]) => {
-    Navigation.setRoot({
-      root: {
-        stack: {
-          children: [
-            {
-              component: {
-                name: 'Detail',
-                options: {
-                  topBar: {
-                    visible: true,
-                    leftButtons: [
-                      {
-                        id: 'back',
-                        icon: back,
-                        fontSize: 10,
-                        color: '#555',
-                      },
-                    ],
-                    rightButtons: [
-                      {
-                        id: 'cart',
-                        icon: order,
-                        fontSize: 10,
-                        color: '#555',
-                      },
-                    ],
-                  },
-                },
-              },
-            },
-          ],
-        },
-      },
-    });
   });
 };

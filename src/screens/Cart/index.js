@@ -23,7 +23,7 @@ const Cart = (props) => {
     isOutStock = true;
   }
   const onBackLayout = () => {
-    homeScreen();
+    Navigation.pop(props.componentId);
   };
   return (
     <View style={styles.container}>

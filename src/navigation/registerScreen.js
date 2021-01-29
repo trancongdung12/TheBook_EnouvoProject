@@ -17,6 +17,7 @@ import Setting from '../screens/User/Setting';
 import Orders from '../screens/Orders/index';
 import Library from '../screens/Library';
 import Search from '../screens/Home/Search';
+import UploadImage from '../components/UploadImage';
 function ReduxProvider(Component) {
   return (props) => (
     <Provider store={store}>
@@ -95,5 +96,10 @@ export function registerScreens() {
     'Filter',
     () => ReduxProvider(Filter),
     () => Filter,
+  );
+  Navigation.registerComponent(
+    'UploadImage',
+    () => ReduxProvider(UploadImage),
+    () => UploadImage,
   );
 }

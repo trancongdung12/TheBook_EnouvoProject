@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { introScreen, pushScreen } from '../../navigation/pushScreen';
 import ItemBook from '../../components/ItemBook';
@@ -6,10 +6,11 @@ import ListBook from '../../components/ListBook';
 import { useDispatch, useSelector } from 'react-redux';
 import BookTypes from '../../redux/HomeRedux/actions';
 import { Navigation } from 'react-native-navigation';
+import DetailActions from '../../redux/DetailRedux/actions';
 
 const Home = (props) => {
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
-
+  const dispatch = useDispatch();
   Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
     if (buttonId === 'sideBar') {
       Navigation.mergeOptions('sideBar', {
@@ -28,11 +29,39 @@ const Home = (props) => {
     pushScreen(props.componentId, 'Filter', '', '', false);
   };
 
+  const onDetailBook = (id) => {
+    dispatch(DetailActions.getDetailBook(id, onSuccess));
+  };
+
+  const onSuccess = () => {
+    pushScreen(props.componentId, 'Detail', '', '', true, 'ic-back', 'ic-cart-1');
+  };
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.layoutItem}>
         <ListBook onFilter={onFilter} />
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {datas.map((item, index) => {
+            return (
+              <ItemBook
+                key={index}
+                image={item.medias[0]}
+                title={item.title}
+                authors={item.authors[0].name}
+                price={item.price}
+                idBook={item.id}
+                rating={item.overallStarRating}
+                idComponent={props.componentId}
+                onDetailBook={onDetailBook}
+              />
+            );
+          })}
+        </ScrollView>
+      </View>
+      <View style={styles.layoutItem}>
+        <ListBook onFilter={onFilter} />
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {datas.map((item, index) => {
             return (
               <ItemBook
@@ -51,26 +80,7 @@ const Home = (props) => {
       </View>
       <View style={styles.layoutItem}>
         <ListBook onFilter={onFilter} />
-        <ScrollView horizontal={true}>
-          {datas.map((item, index) => {
-            return (
-              <ItemBook
-                key={index}
-                image={item.medias[0]}
-                title={item.title}
-                authors={item.authors[0].name}
-                price={item.price}
-                idBook={item.id}
-                rating={item.overallStarRating}
-                idComponent={props.componentId}
-              />
-            );
-          })}
-        </ScrollView>
-      </View>
-      <View style={styles.layoutItem}>
-        <ListBook onFilter={onFilter} />
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {datas.map((item, index) => {
             return (
               <ItemBook

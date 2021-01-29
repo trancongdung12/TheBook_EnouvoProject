@@ -43,9 +43,21 @@ const Filter = (props) => {
       <View style={styles.layoutItem}>
         {check ? (
           <View>
-            <ItemBookHorizontal />
-            <ItemBookHorizontal />
-            <ItemBookHorizontal />
+            {data.map((item, index) => {
+              return (
+                <ItemBookHorizontal
+                  key={index}
+                  image={item.medias[0]}
+                  title={item.title}
+                  authors={item.authors[0].name}
+                  price={item.price}
+                  qtyBook={item.quantity}
+                  idBook={item.id}
+                  rating={item.overallStarRating}
+                  idComponent={props.componentId}
+                />
+              );
+            })}
           </View>
         ) : (
           <View style={styles.twoItem}>

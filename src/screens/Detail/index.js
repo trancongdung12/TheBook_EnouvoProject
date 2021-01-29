@@ -12,7 +12,7 @@ import { Navigation } from 'react-native-navigation';
 import ListBook from '../../components/ListBook';
 import { useDispatch } from 'react-redux';
 import CartActions from '../../redux/CartRedux/actions';
-import { homeScreen } from '../../navigation/pushScreen';
+import { homeScreen, pushScreen } from '../../navigation/pushScreen';
 import AddComment from '../../components/AddComment';
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
@@ -42,17 +42,23 @@ const Detail = (props) => {
   };
   // push back home screeen
   Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
-    if (buttonId === 'back') {
-      homeScreen();
-    } else if (buttonId === 'cart') {
-      dispatch(CartActions.userGetCart());
+    if (buttonId === 'ic-back') {
+      Navigation.pop(props.componentId);
+    } else if (buttonId === 'ic-cart-1') {
+      dispatch(CartActions.userGetCart(onSuccess));
     }
   });
+
+  const onSuccess = () => {
+    pushScreen(props.componentId, 'Cart', '', 'Gio hang', false, 'ic-back', 'ic-trash');
+  };
+
   // Check loading of add to cart
   // const checkLoadAddCart = carts.loadingAddCart;
   return (
     <ScrollView
       style={[styles.container, model && { opacity: 0.3 }, modelReview && { opacity: 0.3 }]}
+      showsVerticalScrollIndicator={false}
     >
       {model && (
         <AlertMessage
@@ -113,7 +119,7 @@ const Detail = (props) => {
           </Text>
           <ListBook />
         </View>
-        <ScrollView horizontal={true}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {datas.map((item, index) => {
             return (
               <ItemBook

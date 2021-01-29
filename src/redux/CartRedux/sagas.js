@@ -12,12 +12,12 @@ export function* userAddBooksToCarts({ data }) {
   }
 }
 
-export function* userGetBooksToCarts() {
+export function* userGetBooksToCarts({ onSuccess }) {
   try {
     const response = yield call(userGetApiCart);
     console.log(response);
     yield put(AddCartActions.userGetCartSuccess(response));
-    cartScreen();
+    onSuccess && onSuccess();
   } catch (error) {
     yield put(AddCartActions.userGetCartFailure(error));
   }

@@ -16,7 +16,7 @@ const userAddCartSuccess = (response) =>
 const userAddCartFailure = (error) => makeActionCreator(CartTypes.USER_ADD_CART_FAILURE, { error });
 const userEndMessage = () => makeActionCreator(CartTypes.USER_END_MESSAGE);
 
-const userGetCart = () => makeActionCreator(CartTypes.USER_GET_CART);
+const userGetCart = (onSuccess) => makeActionCreator(CartTypes.USER_GET_CART, { onSuccess });
 const userGetCartSuccess = (response) =>
   makeActionCreator(CartTypes.USER_GET_CART_SUCCESS, { response });
 const userGetCartFailure = (error) => makeActionCreator(CartTypes.USER_GET_CART_FAILURE, { error });
