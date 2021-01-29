@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { introScreen, pushScreen } from '../../navigation/pushScreen';
+import React from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { pushScreen } from '../../navigation/pushScreen';
 import ItemBook from '../../components/ItemBook';
 import ListBook from '../../components/ListBook';
 import { useDispatch, useSelector } from 'react-redux';
-import BookTypes from '../../redux/HomeRedux/actions';
 import { Navigation } from 'react-native-navigation';
 import DetailActions from '../../redux/DetailRedux/actions';
 

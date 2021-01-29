@@ -14,8 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import colors from '../../themes/Colors';
 import ItemBook from '../../components/ItemBook';
 import ModalCode from '../../components/ModalCode';
-import { useDispatch, useSelector } from 'react-redux';
-import userActions from '../../redux/UserRedux/actions';
+import { useSelector } from 'react-redux';
 import { pushScreen } from '../../navigation/pushScreen';
 
 const windowWidth = Dimensions.get('window').width;
@@ -26,10 +25,7 @@ const Profile = (props) => {
   const closeModal = () => {
     setModal(false);
   };
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(userActions.userInfo());
-  }, []);
+
   const user = useSelector((state) => state.user.data);
   const uploadImage = () => {
     pushScreen(props.componentId, 'UploadImage', '', '', false);

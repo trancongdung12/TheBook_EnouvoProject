@@ -1,24 +1,25 @@
-// import Immutable from 'seamless-immutable';
-// import { makeReducerCreator } from '../../utils/Utils';
-// import { DetailTypes } from './actions';
+import Immutable from 'seamless-immutable';
+import { makeReducerCreator } from '../../utils/Utils';
+import { ReviewTypes } from './actions';
 
-// export const INITIAL_STATE = Immutable({
-//   loadingBookDetail: false,
-//   responseBookDetail: null,
-//   typeBookDetail: '',
-// });
+export const INITIAL_STATE = Immutable({
+  reviewData: null,
+  editData: null,
+});
 
-// export const addReviewBook = (state, { response }) =>
-//   state.merge({ loadingBookDetail: true, typeBookDetail: 'User get detail book ' });
-// export const getBookDetailSuccess = (state, { response }) =>
-//   state.merge({
-//     loadingBookDetail: false,
-//     responseBookDetail: response,
-//     typeBookDetail: 'User  get detail book success',
-//   });
-// const reducer = makeReducerCreator(INITIAL_STATE, {
-//   [DetailTypes.GET_BOOK_DETAIL]: getBookDetail,
-//   [DetailTypes.GET_BOOK_DETAIL_SUCCESS]: getBookDetailSuccess,
-// });
+export const getAllReviewBookSuccess = (state, { response }) =>
+  state.merge({
+    reviewData: response,
+    typeBookDetail: 'User get all review book',
+  });
+export const getEditReviewBookSuccess = (state, { response }) =>
+  state.merge({
+    editData: response,
+    typeBookDetail: 'User edit review book',
+  });
+const reducer = makeReducerCreator(INITIAL_STATE, {
+  [ReviewTypes.GET_ALL_REVIEW_BOOK_SUCCESS]: getAllReviewBookSuccess,
+  [ReviewTypes.GET_EDIT_REVIEW_BOOK_SUCCESS]: getEditReviewBookSuccess,
+});
 
-// export default reducer;
+export default reducer;

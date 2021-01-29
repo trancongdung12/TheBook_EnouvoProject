@@ -3,6 +3,8 @@ import BookTypeActions, { BookTypes } from './actions';
 import { bookTypesApis } from '../../api/auth';
 import { getSuggestionApi } from '../../api/books';
 import { homeScreen } from '../../navigation/pushScreen';
+import ReviewActions from '../ReviewRedux/actions';
+import userActions from '../UserRedux/actions';
 export function* bookTypesApi() {
   try {
     const response = yield call(bookTypesApis);
@@ -10,6 +12,8 @@ export function* bookTypesApi() {
       data: response.data.books,
     };
     yield put(BookTypeActions.responseSuccess(newResponse));
+    yield put(ReviewActions.getALlReviewBook());
+    yield put(userActions.userInfo());
     homeScreen();
   } catch (error) {
     console.log(error);

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, Modal, TouchableOpacity, StyleSheet, Image, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { Dimensions } from 'react-native';
 import StarRating from 'react-native-star-rating';
 import colors from '../themes/Colors';
-import addReviewBook from '../redux/ReviewRedux/actions';
+import ReviewTypes from '../redux/ReviewRedux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import Icon from 'react-native-vector-icons/thebook-appicon';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 export default function AddComment(props) {
@@ -15,6 +16,12 @@ export default function AddComment(props) {
   const bookId = useSelector((state) => state.detail.responseBookDetail.id);
   const userId = useSelector((state) => state.user.data.id);
 
+  useEffect(() => {
+    if (props.isUpdate) {
+      setStar(props.reviewData.starRating);
+      setComment(props.reviewData.content);
+    }
+  }, []);
   const closeModel = () => {
     setAlertVisible(false);
     props.closeReview();
@@ -37,15 +44,37 @@ export default function AddComment(props) {
       // eslint-disable-next-line no-alert
       alert('Vui lòng nhập bình luận !');
     } else {
-      dispatch(addReviewBook(data));
+      dispatch(ReviewTypes.addReviewBook(data));
       closeModel();
     }
   };
+
+  const updateReview = () => {
+    const data = {
+      bookId: bookId,
+      userId: userId,
+      content: comment,
+      starRating: star,
+      isDeleted: false,
+      isOutstanding: true,
+    };
+    if (comment === '') {
+      // eslint-disable-next-line no-alert
+      alert('Vui lòng nhập bình luận !');
+    } else {
+      dispatch(ReviewTypes.updateReviewBook(props.reviewData.id, data));
+      closeModel();
+    }
+  };
+
   return (
     <View style={styles.centerView}>
       <Modal animationType="slide" transparent={true} visible={alertVisible}>
         <View>
           <View style={styles.modalView}>
+            <TouchableOpacity style={{ alignSelf: 'flex-end' }} onPress={() => closeModel()}>
+              <Icon name="ic-delete" size={15} color={colors.txtLevel3} />
+            </TouchableOpacity>
             <View style={styles.layoutReview}>
               <Text style={styles.textReview}>Đánh giá</Text>
               <StarRating
@@ -69,8 +98,13 @@ export default function AddComment(props) {
                 placeholder="Nhập nội dung nhận xét ở đây, tối thiểu 30 ký tự, tối đa 2000 ký tự"
               />
             </View>
-            <TouchableOpacity style={styles.btnSendReview} onPress={addReview}>
-              <Text style={styles.textSendReview}>Gởi nhận xét</Text>
+            <TouchableOpacity
+              style={styles.btnSendReview}
+              onPress={props.isUpdate ? updateReview : addReview}
+            >
+              <Text style={styles.textSendReview}>
+                {props.isUpdate ? 'Cập nhập nhận xét' : 'Gởi nhận xét'}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -98,7 +132,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.85,
     elevation: 5,
-    paddingVertical: 30,
+    paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: 'center',
   },
