@@ -32,7 +32,7 @@ const Home = (props) => {
     <ScrollView style={styles.container}>
       <View style={styles.layoutItem}>
         <ListBook onFilter={onFilter} />
-        <ScrollView horizontal={true}>
+        <ScrollView persistentScrollbar={false} horizontal={true}>
           {datas.map((item, index) => {
             return (
               <ItemBook

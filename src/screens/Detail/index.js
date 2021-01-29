@@ -15,6 +15,7 @@ import { homeScreen } from '../../navigation/pushScreen';
 import AddComment from '../../components/HandleComment';
 import Comment from '../../components/ItemComment';
 import ReviewActions from '../../redux/ReviewRedux/actions';
+import HTML from 'react-native-render-html';
 
 const Detail = (props) => {
   const [isMore, setIsMore] = useState(false);
@@ -155,7 +156,12 @@ const Detail = (props) => {
         </View>
         <View style={styles.layoutDescription}>
           <Text numberOfLines={isMore ? 10 : 3} style={styles.textDescription}>
-            {data.content}
+            <HTML
+              source={
+                '<h1 style={color:"red"}>This HTML snippet is now rendered with native components !</h1>'
+              }
+              contentWidth={300}
+            />
           </Text>
           <ListBook />
         </View>
