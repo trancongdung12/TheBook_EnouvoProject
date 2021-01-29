@@ -17,6 +17,8 @@ import Setting from '../screens/User/Setting';
 import Orders from '../screens/Orders/index';
 import Library from '../screens/Library';
 import Search from '../screens/Home/Search';
+import ChangePassword from '../screens/User/ChangePassword';
+import EditInfo from '../screens/User/EditInfo';
 function ReduxProvider(Component) {
   return (props) => (
     <Provider store={store}>
@@ -95,5 +97,15 @@ export function registerScreens() {
     'Filter',
     () => ReduxProvider(Filter),
     () => Filter,
+  );
+  Navigation.registerComponent(
+    'ChangePassword',
+    () => ReduxProvider(ChangePassword),
+    () => ChangePassword,
+  );
+  Navigation.registerComponent(
+    'EditInfo',
+    () => ReduxProvider(EditInfo),
+    () => EditInfo,
   );
 }

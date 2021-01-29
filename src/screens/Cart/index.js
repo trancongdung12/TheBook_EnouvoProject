@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import colors from '../../themes/Colors';
 import { Dimensions } from 'react-native';
-import { Navigation } from 'react-native-navigation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Book from '../../components/ItemBookHorizontal';
 import AlertMessage from '../../components/AlertMessage';
 import TitleHeader from '../../components/TitleHeader';
-import { pushScreen, homeScreen } from '../../navigation/pushScreen';
+import { homeScreen } from '../../navigation/pushScreen';
+import Payments from '../../components/Payments';
 const windowWidth = Dimensions.get('window').width;
 
 const Cart = (props) => {
@@ -35,10 +35,10 @@ const Cart = (props) => {
         onBackLayout={onBackLayout}
       />
       {model && (
-        <AlertMessage
+        <Payments
           isTwoBtn={false}
-          title="Sách đã được đặt thành công Bạn có thể theo dõi tại mục cá nhân"
-          textFirstBtn="Cám ơn"
+          title="Thông tin khách hàng"
+          textFirstBtn="Xác nhận"
           closeModalMain={closeModal}
         />
       )}
@@ -65,7 +65,6 @@ const Cart = (props) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
