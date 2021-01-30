@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import Colors from '../../themes/Colors';
 import NotificationItem from '../../components/NotificationItem';
 import TitleHeader from '../../components/TitleHeader';
 
@@ -10,9 +11,22 @@ const Notification = () => {
       <TitleHeader title={'Danh sách đơn hàng'} rightIcon={'filter'} />
       <ScrollView style={styles.container}>
         <View style={styles.bodyNotification}>
-          <NotificationItem icon="ic-book" time="20/05/2000" title="Mượn Sách" content="" />
-          <NotificationItem icon="ic-sale" time="20/05/2000" title="Khuyến Mãi" content="" />
           <NotificationItem
+            color="#eb6f6f"
+            icon="ic-book"
+            time="20/05/2000"
+            title="Mượn Sách"
+            content=""
+          />
+          <NotificationItem
+            color="#7ed321"
+            icon="ic-sale"
+            time="20/05/2000"
+            title="Khuyến Mãi"
+            content=""
+          />
+          <NotificationItem
+            color={Colors.primary}
             icon="ic-notification-1"
             time="20/05/2000"
             title="Thông Báo"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/thebook-appicon';
 import colors from '../../themes/Colors';
 import { Dimensions } from 'react-native';
@@ -46,6 +46,7 @@ const Filter = (props) => {
             {data.map((item, index) => {
               return (
                 <ItemBookHorizontal
+                  hideClose={true}
                   key={index}
                   image={item.medias[0]}
                   title={item.title}
@@ -60,22 +61,24 @@ const Filter = (props) => {
             })}
           </View>
         ) : (
-          <View style={styles.twoItem}>
-            {data.map((item, index) => {
-              return (
-                <ItemBook
-                  key={index}
-                  image={item.medias[0]}
-                  title={item.title}
-                  authors={item.authors[0].name}
-                  price={item.price}
-                  idBook={item.id}
-                  rating={item.overallStarRating}
-                  idComponent={props.componentId}
-                />
-              );
-            })}
-          </View>
+          <ScrollView>
+            <View style={styles.twoItem}>
+              {data.map((item, index) => {
+                return (
+                  <ItemBook
+                    key={index}
+                    image={item.medias[0]}
+                    title={item.title}
+                    authors={item.authors[0].name}
+                    price={item.price}
+                    idBook={item.id}
+                    rating={item.overallStarRating}
+                    idComponent={props.componentId}
+                  />
+                );
+              })}
+            </View>
+          </ScrollView>
         )}
       </View>
     </View>
@@ -114,6 +117,8 @@ const styles = StyleSheet.create({
   twoItem: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginLeft: (windowWidth - 155 * 2 + 40) / 2,
+    paddingHorizontal: 30,
+    // marginLeft: (windowWidth - 155 * 2 + 40) / 2,
+    justifyContent: 'space-between',
   },
 });

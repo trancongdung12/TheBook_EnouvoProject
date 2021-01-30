@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { pushScreen } from '../../navigation/pushScreen';
 import ItemBook from '../../components/ItemBook';
 import ListBook from '../../components/ListBook';
@@ -8,6 +8,7 @@ import { Navigation } from 'react-native-navigation';
 import DetailActions from '../../redux/DetailRedux/actions';
 
 const Home = (props) => {
+  const [loading, setLoading] = useState(false);
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
   const dispatch = useDispatch();
   Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
@@ -29,14 +30,18 @@ const Home = (props) => {
   };
 
   const onDetailBook = (id) => {
+    setLoading(true);
     dispatch(DetailActions.getDetailBook(id, onSuccess));
   };
 
   const onSuccess = () => {
+    setLoading(false);
     pushScreen(props.componentId, 'Detail', '', '', true, 'ic-back', 'ic-cart-1');
   };
 
-  return (
+  return loading ? (
+    <ActivityIndicator style={{ flex: 1 }} size="small" color="#0000ff" />
+  ) : (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.layoutItem}>
         <ListBook onFilter={onFilter} />
@@ -101,6 +106,10 @@ const Home = (props) => {
 };
 
 const styles = StyleSheet.create({
+  loading: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     marginLeft: 15,

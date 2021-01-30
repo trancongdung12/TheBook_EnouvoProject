@@ -6,8 +6,8 @@ const { width } = Dimensions.get('window');
 const NotificationItem = (props) => {
   return (
     <View style={styles.itemNotification}>
-      <View style={styles.iconNotification}>
-        <Icons name={props.icon} style={styles.icons} />
+      <View style={[styles.iconNotification, { backgroundColor: props.color }]}>
+        <Icons name={props.icon} style={styles.icons} color="white" />
       </View>
       <View style={styles.contentNotification}>
         <View style={styles.titleContent}>
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   iconNotification: {
     width: (15 * width) / 100,
     height: (15 * width) / 100,
-    backgroundColor: Colors.primary,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',

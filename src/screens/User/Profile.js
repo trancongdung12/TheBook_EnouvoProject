@@ -16,11 +16,13 @@ import ItemBook from '../../components/ItemBook';
 import ModalCode from '../../components/ModalCode';
 import { useSelector } from 'react-redux';
 import { pushScreen } from '../../navigation/pushScreen';
-
+import ItemBookHorizontal from '../../components/ItemBookHorizontal';
 const windowWidth = Dimensions.get('window').width;
 
 const Profile = (props) => {
   const [modal, setModal] = useState(false);
+  const [filter, setFilter] = useState(false);
+  const [option, setOption] = useState('rent');
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
   const closeModal = () => {
     setModal(false);
@@ -30,6 +32,7 @@ const Profile = (props) => {
   const uploadImage = () => {
     pushScreen(props.componentId, 'UploadImage', '', '', false);
   };
+  console.log(option);
   return (
     <ScrollView style={[styles.container, modal && { opacity: 0.3 }]}>
       {modal && (
@@ -55,7 +58,7 @@ const Profile = (props) => {
         style={styles.overlay}
       />
       <View style={styles.layoutInfo}>
-        <Text style={styles.textName}>{user ? user.fullName : 'No name'}</Text>
+        <Text style={styles.textName}>{user.fullName}</Text>
         <View style={styles.containInfo}>
           <TouchableOpacity style={styles.layoutPlatinum}>
             <Icon name="ic-titan" size={20} color={colors.platinum} />
@@ -67,41 +70,98 @@ const Profile = (props) => {
         </View>
       </View>
       <View style={styles.layoutOption}>
-        <TouchableOpacity style={styles.option}>
-          <Text style={[styles.textOption, { color: colors.txtLevel1 }]}>Đang mượn</Text>
-          <Text style={[styles.textOption, { color: colors.txtLevel1 }]}>12</Text>
+        <TouchableOpacity style={styles.option} onPress={() => setOption('rent')}>
+          <Text style={[styles.textOption, option === 'rent' && { color: colors.txtLevel1 }]}>
+            Đang mượn
+          </Text>
+          <Text style={[styles.textOption, option === 'rent' && { color: colors.txtLevel1 }]}>
+            12
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option}>
-          <Text style={styles.textOption}>Yêu thích</Text>
-          <Text style={styles.textOption}>12</Text>
+        <TouchableOpacity style={styles.option} onPress={() => setOption('like')}>
+          <Text style={[styles.textOption, option === 'like' && { color: colors.txtLevel1 }]}>
+            Yêu thích
+          </Text>
+          <Text style={[styles.textOption, option === 'like' && { color: colors.txtLevel1 }]}>
+            12
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option}>
-          <Text style={styles.textOption}>Tích điểm</Text>
-          <Text style={styles.textOption}>12</Text>
+        <TouchableOpacity style={styles.option} onPress={() => setOption('score')}>
+          <Text style={[styles.textOption, option === 'score' && { color: colors.txtLevel1 }]}>
+            Tích điểm
+          </Text>
+          <Text style={[styles.textOption, option === 'score' && { color: colors.txtLevel1 }]}>
+            12
+          </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.layoutFilter}>
-        <Icon name="ic-filter-change-2" size={20} color={colors.btnLevel1} />
-        <Icon name="ic-filter-change" size={20} color={colors.btnLevel2} />
-      </View>
-      <View style={styles.layoutBook}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {datas.map((item, index) => {
-            return (
-              <ItemBook
-                key={index}
-                image={item.medias[0]}
-                title={item.title}
-                authors={item.authors[0].name}
-                price={item.price}
-                idBook={item.id}
-                rating={item.overallStarRating}
-                idComponent={props.componentId}
-              />
-            );
-          })}
-        </ScrollView>
-      </View>
+      {(() => {
+        if (option === 'rent') {
+          return (
+            <View>
+              <View style={styles.layoutFilter}>
+                <TouchableOpacity onPress={() => setFilter(false)}>
+                  <Icon
+                    name="ic-filter-change-2"
+                    size={20}
+                    color={filter ? colors.btnLevel2 : 'red'}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setFilter(true)}>
+                  <Icon
+                    name="ic-filter-change"
+                    size={20}
+                    color={filter ? 'red' : colors.btnLevel2}
+                  />
+                </TouchableOpacity>
+              </View>
+              {filter ? (
+                <View style={styles.layoutBookHorizontal}>
+                  {datas.map((item, index) => {
+                    return (
+                      <ItemBookHorizontal
+                        hideClose={true}
+                        key={index}
+                        image={item.medias[0]}
+                        title={item.title}
+                        authors={item.authors[0].name}
+                        price={item.price}
+                        qtyBook={item.quantity}
+                        idBook={item.id}
+                        rating={item.overallStarRating}
+                        idComponent={props.componentId}
+                      />
+                    );
+                  })}
+                </View>
+              ) : (
+                <View style={styles.layoutBook}>
+                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                    {datas.map((item, index) => {
+                      return (
+                        <ItemBook
+                          key={index}
+                          image={item.medias[0]}
+                          title={item.title}
+                          authors={item.authors[0].name}
+                          price={item.price}
+                          idBook={item.id}
+                          rating={item.overallStarRating}
+                          idComponent={props.componentId}
+                        />
+                      );
+                    })}
+                  </ScrollView>
+                </View>
+              )}
+            </View>
+          );
+        } else if (option === 'like') {
+          return <Text>Like</Text>;
+        } else if (option === 'score') {
+          return <Text>Score</Text>;
+        }
+      })()}
     </ScrollView>
   );
 };

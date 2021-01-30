@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -15,6 +15,7 @@ import colors from '../../themes/Colors';
 import banner from '../../assets/image/banner.jpg';
 const windowWidth = Dimensions.get('window').width;
 const Library = () => {
+  const [option, setOption] = useState('image');
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.imgBackground} source={library}>
@@ -58,17 +59,34 @@ const Library = () => {
         </View>
       </ImageBackground>
       <View style={styles.layoutOption}>
-        <TouchableOpacity style={[styles.itemOption, styles.isTextOption]}>
+        <TouchableOpacity
+          onPress={() => setOption('image')}
+          style={[styles.itemOption, option === 'image' && styles.isTextOption]}
+        >
           <Text style={styles.textOption}>Hình Ảnh</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.itemOption}>
+        <TouchableOpacity
+          onPress={() => setOption('event')}
+          style={[styles.itemOption, option === 'event' && styles.isTextOption]}
+        >
           <Text style={styles.textOption}>Sự Kiện</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.itemOption}>
+        <TouchableOpacity
+          onPress={() => setOption('promote')}
+          style={[styles.itemOption, option === 'promote' && styles.isTextOption]}
+        >
           <Text style={styles.textOption}>Khuyến Mãi</Text>
         </TouchableOpacity>
       </View>
-      <Image style={styles.imgBanner} source={banner} />
+      {(() => {
+        if (option === 'image') {
+          return <Image style={styles.imgBanner} source={banner} />;
+        } else if (option === 'event') {
+          return <Text>Sự kiện</Text>;
+        } else if (option === 'promote') {
+          return <Text>Khuyến mãi</Text>;
+        }
+      })()}
     </View>
   );
 };

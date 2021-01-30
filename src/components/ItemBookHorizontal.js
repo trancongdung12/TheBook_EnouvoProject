@@ -36,7 +36,7 @@ const Book = (props) => {
           </View>
         </View>
       </View>
-      <Icon name="ic-delete" size={13} color={colors.txtLevel2} />
+      {props.hideClose ? <View /> : <Icon name="ic-delete" size={13} color={colors.txtLevel2} />}
     </View>
   );
 };

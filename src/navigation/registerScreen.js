@@ -104,7 +104,7 @@ export function registerScreens() {
     () => ReduxProvider(UploadImage),
     () => UploadImage,
   );
-    Navigation.registerComponent(
+  Navigation.registerComponent(
     'ChangePassword',
     () => ReduxProvider(ChangePassword),
     () => ChangePassword,

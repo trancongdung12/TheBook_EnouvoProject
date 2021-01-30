@@ -15,9 +15,8 @@ import { pushScreen } from '../../navigation/pushScreen';
 import AddComment from '../../components/HandleComment';
 import Comment from '../../components/ItemComment';
 import ReviewActions from '../../redux/ReviewRedux/actions';
-import HTML from 'react-native-render-html';
+import HTMLView from 'react-native-htmlview';
 const Detail = (props) => {
-  const [isMore, setIsMore] = useState(false);
   const [modal, setModal] = useState(false);
   const [modalReview, setModalReview] = useState(false);
   const [modalUpdateReview, setModalUpdateReview] = useState(false);
@@ -157,14 +156,7 @@ const Detail = (props) => {
           })}
         </View>
         <View style={styles.layoutDescription}>
-          <Text numberOfLines={isMore ? 10 : 3} style={styles.textDescription}>
-            <HTML
-              source={
-                '<h1 style={color:"red"}>This HTML snippet is now rendered with native components !</h1>'
-              }
-              contentWidth={300}
-            />
-          </Text>
+          <HTMLView value={data.content.substring(0, 300) + '...'} />
           <ListBook />
         </View>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -314,7 +306,7 @@ const styles = StyleSheet.create({
   },
   textDescription: {
     fontSize: 12,
-    color: colors.txtLevel3,
+    color: 'red',
   },
   textViewMore: {
     color: colors.secondary,
