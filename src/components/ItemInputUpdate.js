@@ -5,7 +5,12 @@ const ItemInput = (props) => {
   return (
     <View style={styles.itemChangePass}>
       <Text style={styles.txtTitleChangePass}>{props.title}</Text>
-      <TextInput style={styles.txtChangePass} onChangeText={props.onChange} />
+      <TextInput
+        style={styles.txtChangePass}
+        onChangeText={props.onChange}
+        placeholder={props.oldData}
+        value={props.value}
+      />
     </View>
   );
 };

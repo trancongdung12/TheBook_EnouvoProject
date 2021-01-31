@@ -47,7 +47,9 @@ const Profile = (props) => {
           <Icon name="ic-photo" size={20} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => pushScreen(props.componentId, 'Setting', '', 'Cài đặt thông tin', true)}
+          onPress={() =>
+            pushScreen(props.componentId, 'Setting', '', '', true, 'Cài đặt thông tin', 'ic-back')
+          }
         >
           <Icon name="ic-setting" size={20} color="white" />
         </TouchableOpacity>

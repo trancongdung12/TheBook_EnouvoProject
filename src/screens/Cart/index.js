@@ -9,6 +9,7 @@ import AlertMessage from '../../components/AlertMessage';
 import TitleHeader from '../../components/TitleHeader';
 import { homeScreen } from '../../navigation/pushScreen';
 import Payments from '../../components/Payments';
+import Navigation from 'react-native-navigation';
 const windowWidth = Dimensions.get('window').width;
 
 const Cart = (props) => {

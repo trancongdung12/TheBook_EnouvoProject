@@ -24,14 +24,31 @@ const Setting = (props) => {
         icon="ic-profile"
         value="Thông tin cá nhân"
         onPressEvent={() =>
-          pushScreen(props.componentId, 'EditInfo', '', 'Thông tin cá nhân', true)
+          pushScreen(
+            props.componentId,
+            'EditInfo',
+            '',
+            'Thông tin cá nhân',
+            true,
+            'Thông tin cá nhân',
+            'ic-back',
+            '',
+          )
         }
       />
       <Item
         icon="ic-password"
         value="Đổi mật khẩu"
         onPressEvent={() =>
-          pushScreen(props.componentId, 'ChangePassword', '', 'Đổi mật khẩu', true)
+          pushScreen(
+            props.componentId,
+            'ChangePassword',
+            '',
+            'Đổi mật khẩu',
+            true,
+            'Thay đổi mật khẩu',
+            'ic-back',
+          )
         }
       />
       <Item icon="ic-help" value="Hỗ trợ" />

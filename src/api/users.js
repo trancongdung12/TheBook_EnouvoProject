@@ -7,6 +7,6 @@ export async function getProfile() {
 export async function userChangePasswordApi(id, data) {
   return http.put('/api/users/' + id + '/password/change', data);
 }
-// export async function userUpdateInfo(data) {
-//   return http.put('/users/me', data);
-// }
+export async function userUpdateInfoApi(id, data) {
+  return http.put('/api/users/' + id + '/updateprofile', data);
+}
