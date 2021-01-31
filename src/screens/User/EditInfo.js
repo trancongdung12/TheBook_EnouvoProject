@@ -72,7 +72,6 @@ const EditInfo = () => {
   // check update profile
   const checkLoading = user.loading;
   const checkSuccess = user.dataUpdateProfile;
-  console.log(checkSuccess);
   const checkFailure = user.errorUpdateProfile;
   return (
     <ScrollView style={styles.container}>
