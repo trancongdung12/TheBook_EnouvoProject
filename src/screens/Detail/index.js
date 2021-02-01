@@ -16,6 +16,7 @@ import AddComment from '../../components/HandleComment';
 import Comment from '../../components/ItemComment';
 import ReviewActions from '../../redux/ReviewRedux/actions';
 import HTMLView from 'react-native-htmlview';
+import DetailActions from '../../redux/DetailRedux/actions';
 const Detail = (props) => {
   const [modal, setModal] = useState(false);
   const [modalReview, setModalReview] = useState(false);
@@ -59,9 +60,8 @@ const Detail = (props) => {
     }
   });
   const onSuccess = () => {
-    pushScreen(props.componentId, 'Cart', '', 'Gio hang', false, 'ic-back', 'ic-trash');
+    pushScreen(props.componentId, 'Cart', '', 'Cart', false, 'ic-back', 'ic-cart-1');
   };
-
   const AlertWarning = (id) => {
     Alert.alert(
       'Xóa Bình Luận',
@@ -89,6 +89,16 @@ const Detail = (props) => {
     setModalUpdateReview(true);
   };
 
+  const onDetailBook = (id) => {
+    dispatch(DetailActions.getDetailBook(id, onSuccessListBook));
+  };
+
+  const onSuccessListBook = () => {
+    pushScreen(props.componentId, 'Detail', '', '', true, 'ic-back', 'ic-cart-1');
+  };
+
+  // Check loading of add to cart
+  // const checkLoadAddCart = carts.loadingAddCart;
   return (
     <ScrollView
       style={[styles.container, modal && { opacity: 0.3 }, modalReview && { opacity: 0.3 }]}
@@ -171,6 +181,7 @@ const Detail = (props) => {
                 idBook={item.id}
                 rating={item.overallStarRating}
                 idComponent={props.componentId}
+                onDetailBook={onDetailBook}
               />
             );
           })}

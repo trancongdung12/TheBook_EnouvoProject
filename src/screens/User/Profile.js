@@ -14,9 +14,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import colors from '../../themes/Colors';
 import ItemBook from '../../components/ItemBook';
 import ModalCode from '../../components/ModalCode';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { pushScreen } from '../../navigation/pushScreen';
 import ItemBookHorizontal from '../../components/ItemBookHorizontal';
+import DetailActions from '../../redux/DetailRedux/actions';
+import { Navigation } from 'react-native-navigation';
 const windowWidth = Dimensions.get('window').width;
 
 const Profile = (props) => {
@@ -24,6 +26,7 @@ const Profile = (props) => {
   const [filter, setFilter] = useState(false);
   const [option, setOption] = useState('rent');
   const datas = useSelector((state) => state.bookTypes.responseDataType.data);
+  const dispatch = useDispatch();
   const closeModal = () => {
     setModal(false);
   };
@@ -32,7 +35,20 @@ const Profile = (props) => {
   const uploadImage = () => {
     pushScreen(props.componentId, 'UploadImage', '', '', false);
   };
-  console.log(option);
+  const onDetailBook = (id) => {
+    dispatch(DetailActions.getDetailBook(id, onSuccess));
+  };
+
+  const onSuccess = () => {
+    pushScreen(props.componentId, 'Detail', '', '', true, 'ic-back', 'ic-cart-1');
+  };
+
+  Navigation.events().registerNavigationButtonPressedListener(({ buttonId }) => {
+    if (buttonId === 'ic-back') {
+      Navigation.pop(props.componentId);
+    }
+  });
+
   return (
     <ScrollView style={[styles.container, modal && { opacity: 0.3 }]}>
       {modal && (
@@ -48,7 +64,7 @@ const Profile = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
-            pushScreen(props.componentId, 'Setting', '', '', true, 'Cài đặt thông tin', 'ic-back')
+            pushScreen(props.componentId, 'Setting', '', 'Thông tin cá nhân', true, 'ic-back', '')
           }
         >
           <Icon name="ic-setting" size={20} color="white" />
@@ -164,6 +180,29 @@ const Profile = (props) => {
           return <Text>Score</Text>;
         }
       })()}
+      <View style={styles.layoutFilter}>
+        <Icon name="ic-filter-change-2" size={20} color={colors.btnLevel1} />
+        <Icon name="ic-filter-change" size={20} color={colors.btnLevel2} />
+      </View>
+      <View style={styles.layoutBook}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {datas.map((item, index) => {
+            return (
+              <ItemBook
+                key={index}
+                image={item.medias[0]}
+                title={item.title}
+                authors={item.authors[0].name}
+                price={item.price}
+                idBook={item.id}
+                rating={item.overallStarRating}
+                idComponent={props.componentId}
+                onDetailBook={onDetailBook}
+              />
+            );
+          })}
+        </ScrollView>
+      </View>
     </ScrollView>
   );
 };

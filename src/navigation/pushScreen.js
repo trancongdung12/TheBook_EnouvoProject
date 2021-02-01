@@ -1,15 +1,6 @@
 import { Navigation } from 'react-native-navigation';
 import Icons from 'react-native-vector-icons/thebook-appicon';
-export const pushScreen = (
-  componentId,
-  screenApp,
-  passProps,
-  title,
-  visible,
-  titleScreen,
-  left,
-  right,
-) => {
+export const pushScreen = (componentId, screenApp, passProps, title, visible, left, right) => {
   Promise.all([Icons.getImageSource(left, 25), Icons.getImageSource(right, 25)]).then(
     ([leftImage, rightImage]) => {
       Navigation.push(componentId, {
@@ -23,7 +14,7 @@ export const pushScreen = (
             topBar: {
               visible: visible,
               title: {
-                text: titleScreen,
+                text: title,
               },
               leftButtons: [
                 {
