@@ -6,7 +6,7 @@ export const pushScreen = (
   passProps,
   title,
   visible,
-  titleScreen,
+  titleScreen, 
   left,
   right,
 ) => {
