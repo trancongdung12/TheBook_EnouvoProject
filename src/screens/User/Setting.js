@@ -24,31 +24,14 @@ const Setting = (props) => {
         icon="ic-profile"
         value="Thông tin cá nhân"
         onPressEvent={() =>
-          pushScreen(
-            props.componentId,
-            'EditInfo',
-            '',
-            'Thông tin cá nhân',
-            true,
-            'Thông tin cá nhân',
-            'ic-back',
-            '',
-          )
+          pushScreen(props.componentId, 'EditInfo', '', 'Thông tin cá nhân', true, 'ic-back', '')
         }
       />
       <Item
         icon="ic-password"
         value="Đổi mật khẩu"
         onPressEvent={() =>
-          pushScreen(
-            props.componentId,
-            'ChangePassword',
-            '',
-            'Đổi mật khẩu',
-            true,
-            'Thay đổi mật khẩu',
-            'ic-back',
-          )
+          pushScreen(props.componentId, 'ChangePassword', '', 'Đổi mật khẩu', true, 'ic-back', '')
         }
       />
       <Item icon="ic-help" value="Hỗ trợ" />
@@ -64,7 +47,6 @@ const Setting = (props) => {
     </View>
   );
 };
-
 export default Setting;
 
 const styles = StyleSheet.create({

@@ -1,9 +1,11 @@
-import React from 'react';
-import { View, Text, StyleSheet, TextInput, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import Icons from 'react-native-vector-icons/thebook-appicon';
 import Color from '../themes/Colors';
 const { width } = Dimensions.get('window');
 const TextInputs = (props) => {
+  const [openEyes, setOpenEyes] = useState(true);
+  const checkEyes = openEyes;
   return (
     <View style={styles.container}>
       <Text style={styles.txtTitle}>{props.title}</Text>
@@ -14,9 +16,17 @@ const TextInputs = (props) => {
             style={styles.txtInput}
             onChangeText={props.txtChange}
             textContentType={props.typeInput}
-            secureTextEntry={props.secureTextEntry}
+            secureTextEntry={checkEyes}
           />
-          <Icons name="ic-hide-password" style={styles.iconEyes} />
+          {openEyes ? (
+            <TouchableOpacity style={styles.btnCheckOpenEye} onPress={() => setOpenEyes(false)}>
+              <Icons name="ic-hide-password" style={styles.iconEyes} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.btnCheckOpenEye} onPress={() => setOpenEyes(true)}>
+              <Icons name="ic-show-password" style={styles.iconEyes} />
+            </TouchableOpacity>
+          )}
         </View>
       ) : (
         <TextInput
@@ -24,7 +34,6 @@ const TextInputs = (props) => {
           style={styles.txtInput}
           onChangeText={props.txtChange}
           textContentType={props.typeInput}
-          secureTextEntry={props.secureTextEntry}
         />
       )}
     </View>
@@ -56,9 +65,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconEyes: {
-    marginTop: 12,
     fontSize: 25,
-    right: (10 * width) / 100,
+  },
+  btnCheckOpenEye: {
+    height: 40,
+    width: 40,
+    marginTop: 12,
+    right: (12 * width) / 100,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default TextInputs;

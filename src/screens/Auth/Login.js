@@ -42,7 +42,6 @@ const Login = (props) => {
     <ScrollView>
       <View style={styles.bodyLogin}>
         <View style={styles.headerLogin}>
-          <Icons name="ic-delete" style={styles.iconDelete} />
           <Text style={styles.txtTitle}>Login</Text>
         </View>
         <View style={styles.contentLogin}>
@@ -51,14 +50,12 @@ const Login = (props) => {
             name="Nhập Tài Khoản"
             txtChange={(text) => setUserName(text)}
             typeInput="emailAddress"
-            secureTextEntry={false}
           />
           <Input
             title="Mật khẩu"
             name="Nhập Nhập mật khẩu"
             txtChange={(text) => setPassword(text)}
             typeInput="password"
-            secureTextEntry={true}
           />
         </View>
         {checkLoadingLogin && <ActivityIndicator size="small" color="#0000ff" />}
@@ -83,13 +80,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  iconDelete: {
-    fontSize: 15,
-    color: Colors.greyishBrown,
-    marginLeft: 23.25,
-  },
   txtTitle: {
-    width: width - 60,
+    width: width,
     textAlign: 'center',
     fontSize: 30,
     color: Colors.greyishBrown,

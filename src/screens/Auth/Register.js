@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import SignUpTypes from '../../redux/AuthRedux/actions';
 // import theme
@@ -52,7 +60,9 @@ const Register = () => {
     <ScrollView style={styles.container}>
       <View style={styles.bodyRegister}>
         <View style={styles.headerRegister}>
-          <Icons name="ic-delete" style={styles.iconDelete} />
+          <TouchableOpacity onPress={() => loginScreen()} style={styles.btnLogin}>
+            <Icons name="ic-delete" style={styles.iconDelete} />
+          </TouchableOpacity>
           <Text style={styles.txtTitle}>Đăng Kí</Text>
         </View>
         <View style={styles.contentRegister}>
@@ -61,35 +71,30 @@ const Register = () => {
             name="Nhập Tài Khoản"
             txtChange={(text) => setFirstName(text)}
             typeInput="emailAddress"
-            secureTextEntry={false}
           />
           <Inputs
             title="Tên*"
             name="Nhập Tài Khoản"
             txtChange={(text) => setLastName(text)}
             typeInput="emailAddress"
-            secureTextEntry={false}
           />
           <Inputs
             title="Email*"
             name="Nhập Tài Khoản"
             txtChange={(text) => setEmail(text)}
             typeInput="emailAddress"
-            secureTextEntry={false}
           />
           <Inputs
             title="Số điện thoại*"
             name="Nhập Tài Khoản"
             txtChange={(text) => setPhone(text)}
             typeInput="emailAddress"
-            secureTextEntry={false}
           />
           <Inputs
             title="Mật khẩu*"
             name="Nhập Tài Khoản"
             txtChange={(text) => setPassword(text)}
             typeInput="emailAddress"
-            secureTextEntry={true}
             checkPass={true}
           />
           <Inputs
@@ -97,7 +102,6 @@ const Register = () => {
             name="Nhập Tài Khoản"
             txtChange={(text) => setPassAgain(text)}
             typeInput="emailAddress"
-            secureTextEntry={true}
             checkPass={true}
           />
         </View>
@@ -128,10 +132,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  btnLogin: {
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   iconDelete: {
     fontSize: 15,
     color: Colors.greyishBrown,
-    marginLeft: 23.25,
   },
   txtTitle: {
     width: width - 60,
