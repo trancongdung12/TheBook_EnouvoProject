@@ -32,6 +32,7 @@ const Profile = (props) => {
   };
 
   const user = useSelector((state) => state.user.data);
+
   const uploadImage = () => {
     pushScreen(props.componentId, 'UploadImage', '', '', false);
   };
@@ -76,7 +77,7 @@ const Profile = (props) => {
         style={styles.overlay}
       />
       <View style={styles.layoutInfo}>
-        <Text style={styles.textName}>{user.fullName}</Text>
+        <Text style={styles.textName}>{user && user.fullName}</Text>
         <View style={styles.containInfo}>
           <TouchableOpacity style={styles.layoutPlatinum}>
             <Icon name="ic-titan" size={20} color={colors.platinum} />
